@@ -11,8 +11,8 @@ import svarttand.application.Application;
 
 
 public class Player extends Sprite{
-	private static final float MAX_SPEED = 0.1f;
-	private static final float ACCELERATION = 0.5f;
+	private static final float MAX_SPEED = 20f;
+	private static final float ACCELERATION = 10f;
 	private static final float DE_ACCELERATION = 0.5f;
 	
 
@@ -31,12 +31,14 @@ public class Player extends Sprite{
 	public void update(float delta, Vector2 mouse){
 		updateRotation(mouse);
 		if (isPressed) {
-			speed += ACCELERATION;
+			if (speed != MAX_SPEED) {
+				speed += ACCELERATION;
+			}
 		}else{
 			if (speed <= 0){
 				speed = 0;
 			}else{
-				speed -= DE_ACCELERATION;
+				speed = 0;
 			}
 			
 		}

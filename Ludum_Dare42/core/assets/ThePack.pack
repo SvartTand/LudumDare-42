@@ -3,10 +3,24 @@ ThePack.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-Player
+GrassTile
   rotate: false
-  xy: 1, 1
+  xy: 1, 6
   size: 32, 32
   orig: 32, 32
+  offset: 0, 0
+  index: -1
+Player
+  rotate: false
+  xy: 35, 6
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Bullet
+  rotate: false
+  xy: 1, 1
+  size: 3, 3
+  orig: 3, 3
   offset: 0, 0
   index: -1

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import svarttand.application.Application;
+import svarttand.application.sprites.Player;
 import svarttand.application.states.PlayState;
 
 public class InputController implements InputProcessor{
@@ -18,7 +19,10 @@ public class InputController implements InputProcessor{
 
 	@Override
 	public boolean keyDown(int keycode) {
-		
+		if (keycode == Keys.A) {
+			Gdx.graphics.setWindowedMode(Gdx.graphics.getWidth() -10, Gdx.graphics.getHeight() -8);
+			state.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		}
 		return false;
 	}
 
