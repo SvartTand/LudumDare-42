@@ -12,7 +12,7 @@ public class Zombie extends Sprite{
 
 	private static final float MAX_SPEED = 50f;
 	private static final float ACCELERATION = 10f;
-	private static final float DETECTION = 0.5f;
+	private static final float DETECTION = 500;
 	private static final int HP = 10;
 
 	private Vector2 rotationV;
@@ -32,7 +32,7 @@ public class Zombie extends Sprite{
 	
 	public void update(float delta, Vector2 playerPos){
 		updateRotation(playerPos);
-		if (!playerIsNear(playerPos)) {
+		if (playerIsNear(playerPos)) {
 			if (speed != MAX_SPEED) {
 				speed += ACCELERATION;
 			}
@@ -54,6 +54,7 @@ public class Zombie extends Sprite{
 	
 	private boolean playerIsNear(Vector2 playerPos) {
 		float dist = (float) Math.sqrt(Math.pow(playerPos.x - getX(),2)+ Math.pow(playerPos.y - getY(), 2));
+		//System.out.println(dist + "<" + DETECTION);
 		if (dist <= DETECTION) {
 			return true;
 		}

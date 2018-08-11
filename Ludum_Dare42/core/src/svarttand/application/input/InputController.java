@@ -20,7 +20,7 @@ public class InputController implements InputProcessor{
 	@Override
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.A) {
-			Gdx.graphics.setWindowedMode(Gdx.graphics.getWidth() -10, Gdx.graphics.getHeight() -8);
+			Gdx.graphics.setWindowedMode(Gdx.graphics.getWidth() -100, Gdx.graphics.getHeight() -100);
 			state.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		}
 		return false;
@@ -39,7 +39,7 @@ public class InputController implements InputProcessor{
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		System.out.println("shoot " + button);
+		//System.out.println("shoot " + button);
 		if (button == 0) {
 			state.addBullet();
 		}else if (button == 1) {

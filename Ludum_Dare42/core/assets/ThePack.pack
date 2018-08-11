@@ -10,9 +10,23 @@ GrassTile
   orig: 32, 32
   offset: 0, 0
   index: -1
-Player
+LeavesTile
   rotate: false
   xy: 35, 13
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Player
+  rotate: false
+  xy: 69, 13
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+TreeTile
+  rotate: false
+  xy: 103, 13
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -26,7 +40,7 @@ Attack
   index: -1
 Bullet
   rotate: false
-  xy: 69, 35
+  xy: 137, 35
   size: 10, 10
   orig: 10, 10
   offset: 0, 0

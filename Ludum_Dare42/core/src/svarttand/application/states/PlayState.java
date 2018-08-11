@@ -41,7 +41,7 @@ public class PlayState extends State{
 	public PlayState(GameStateManager gsm) {
 		super(gsm);
 		textureAtlas = gsm.assetManager.get("ThePack.pack", TextureAtlas.class);
-		viewport = new FitViewport(Application.V_WIDTH, Application.V_HEIGHT, cam);
+		viewport = new StretchViewport(Application.V_WIDTH, Application.V_HEIGHT, cam);
 		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		player = new Player(0, 0, textureAtlas);
 		controller = new InputController(this);
@@ -84,6 +84,7 @@ public class PlayState extends State{
 		bullets.render(batch);
 		enemyHandler.render(batch);
 		player.draw(batch);
+		map.renderLeaves(batch, textureAtlas);
 		//batch.draw(textureAtlas.findRegion("Player"), 20, 20);
 		batch.end();
 	}
