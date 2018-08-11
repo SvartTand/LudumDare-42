@@ -23,6 +23,8 @@ import box2dLight.PointLight;
 import box2dLight.RayHandler;
 import svarttand.application.Application;
 import svarttand.application.input.InputController;
+import svarttand.application.misc.ParticleHandler;
+import svarttand.application.misc.ParticleType;
 import svarttand.application.misc.ScreenShake;
 import svarttand.application.sprites.EnemyHandler;
 import svarttand.application.sprites.Player;
@@ -44,7 +46,7 @@ public class PlayState extends State{
 	private AttackHandler attackHandler;
 	
 	private ScreenShake screenShake;
-	
+	private ParticleHandler particleHandler;
 	private World world;
 	private RayHandler rayHandler;
 	private PointLight light;
@@ -57,14 +59,17 @@ public class PlayState extends State{
 		textureAtlas = gsm.assetManager.get("ThePack.pack", TextureAtlas.class);
 		viewport = new FitViewport(Application.V_WIDTH, Application.V_HEIGHT, cam);
 		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		player = new Player(500, 500, textureAtlas, this);
+		
 		controller = new InputController(this);
 		map = new Map();
+		player = new Player(map.getWorldSize()*0.5f, map.getWorldSize()*0.5f, textureAtlas, this);
 		Gdx.input.setInputProcessor(controller);
-		bullets = new BulletHandler();
+		bullets = new BulletHandler(this);
 		enemyHandler = new EnemyHandler();
 		attackHandler = new AttackHandler();
 		screenShake = new ScreenShake();
+		particleHandler = new ParticleHandler(textureAtlas);
+		particleHandler.addParticleEffect(ParticleType.HIT, -100, -100);
 		
 //		world = new World(new Vector2(Application.V_WIDTH,Application.V_HEIGHT),false);
 //		rayHandler = new RayHandler(world);
@@ -99,12 +104,26 @@ public class PlayState extends State{
 		
 		enemyHandler.update(delta, textureAtlas, player.getPosition(), bullets, map.getWorldSize());
 		handleInput(delta);
-		player.update(delta, controller.getMouse(), textureAtlas, bullets);
+		player.update(delta, controller.getMouse(), textureAtlas, bullets, screenShake);
 		
 		cam.position.x = player.getX();
 		cam.position.y = player.getY();
-		bullets.update(delta, enemyHandler, player);
-		attackHandler.update(delta);
+		bullets.update(delta, enemyHandler, player, particleHandler);
+		
+		System.out.println(cam.position.x + ", " + cam.position.y);
+		if (cam.position.y < 400) {
+			cam.position.y = 400;
+		}
+		if (cam.position.y > 2800) {
+			cam.position.y = 2800;
+		}
+		if (cam.position.x < 400) {
+			cam.position.x = 400;
+		}
+		if (cam.position.x > 2800) {
+			cam.position.x = 2800;
+		}
+		//attackHandler.update(delta);
 		//light.setPosition(player.getPosition().x, player.getPosition().y);
 	}
 
@@ -123,7 +142,9 @@ public class PlayState extends State{
 
 		player.draw(batch);
 		attackHandler.render(batch, textureAtlas);
+		
 		map.renderLeaves(batch, textureAtlas);
+		particleHandler.render(batch, delta);
 		//batch.draw(textureAtlas.findRegion("Player"), 20, 20);
 		
 		batch.end();
@@ -133,7 +154,7 @@ public class PlayState extends State{
 
 	@Override
 	public void dispose() {
-		
+		particleHandler.dispose();
 		
 	}
 
@@ -147,6 +168,10 @@ public class PlayState extends State{
 		
 		//viewport.setScreenSize(width, height);
 		
+	}
+	
+	public ParticleHandler getParticleHandler(){
+		return particleHandler;
 	}
 	
 	public Player getPlayer() {
@@ -176,7 +201,7 @@ public class PlayState extends State{
 	public void dmg() {
 		Gdx.graphics.setWindowedMode(Gdx.graphics.getWidth() -100, Gdx.graphics.getHeight() -100);
 		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		screenShake.shake(100, 1000, 1000);
+		//screenShake.shake(100, 1000, 1000);
 		
 	}
 

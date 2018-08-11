@@ -8,6 +8,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import svarttand.application.misc.ParticleHandler;
+import svarttand.application.misc.ParticleType;
 import svarttand.application.sprites.EnemyHandler;
 import svarttand.application.sprites.Player;
 
@@ -35,9 +37,9 @@ public class Bullet extends Sprite{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void update(float delta, EnemyHandler handler, BulletHandler bhandler, Player player){
+	public void update(float delta, EnemyHandler handler, BulletHandler bhandler, Player player, ParticleHandler particles){
 		
-		checkBounds(handler, bhandler, player);
+		checkBounds(handler, bhandler, player, particles);
 		timer += delta;
 		//System.out.println(direaaaction.x + ", " + direction.y);
 		float speedx = direction.x * delta * SPEED;
@@ -47,16 +49,18 @@ public class Bullet extends Sprite{
 		
 		bounds.setPosition(getX(), getY());
 	}
-	private void checkBounds(EnemyHandler handler, BulletHandler bHandler, Player player ) {
+	private void checkBounds(EnemyHandler handler, BulletHandler bHandler, Player player, ParticleHandler particles ) {
 		if (enemy) {
 			if (bounds.overlaps(player.getBounds())) {
 				player.takeDmg(DMG);
+				particles.addParticleEffect(ParticleType.HIT, getX(), getY());
 				bHandler.remove(this);
 			}
 		}else{
 			for (int i = 0; i < handler.getEnemies().size(); i++) {
 				if (bounds.overlaps(handler.getEnemies().get(i).getBounds())) {
 					handler.dmg(i, DMG);
+					particles.addParticleEffect(ParticleType.HIT, getX(), getY());
 					bHandler.remove(this);
 				}
 			}

@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import svarttand.application.Application;
+import svarttand.application.misc.ScreenShake;
 import svarttand.application.sprites.effects.Bullet;
 import svarttand.application.sprites.effects.BulletHandler;
 import svarttand.application.states.PlayState;
@@ -46,14 +47,14 @@ public class Player extends Sprite{
 	
 	
 	
-	public Player(int posX, int posY, TextureAtlas atlas, PlayState state) {
+	public Player(float f, float g, TextureAtlas atlas, PlayState state) {
 		super(atlas.findRegion("Walking"));
 		rotationV = new Vector2();
-		bounds = new Rectangle(posX, posY, 20, 20);
+		bounds = new Rectangle(f, g, 20, 20);
 		this.state = state;
 		speedUp = 0;
 		speedSide = 0;
-		setPosition(posX, posY);
+		setPosition(f, g);
 		stateTimer = 0;
 		
 		walking = new Animation<TextureRegion>(0.1f, atlas.findRegions("Walking"), PlayMode.LOOP);
@@ -65,7 +66,7 @@ public class Player extends Sprite{
 		shootingB = false;
 	}
 	
-	public void update(float delta, Vector2 mouse, TextureAtlas atlas, BulletHandler handler){
+	public void update(float delta, Vector2 mouse, TextureAtlas atlas, BulletHandler handler, ScreenShake screenShake){
 		updateRotation(mouse);
 //		if (isPressed) {
 //			if (speed != MAX_SPEED) {
@@ -82,7 +83,7 @@ public class Player extends Sprite{
 		if (shootingB) {
 			if (cooldownToShoot <= 0) {
 				handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), false, "Bullet"));
-				
+				screenShake.shake(250, 250, 250);
 				shootingB = false;
 			}
 			speedUp = 0;

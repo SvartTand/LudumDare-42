@@ -4,20 +4,24 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import svarttand.application.misc.ParticleHandler;
 import svarttand.application.sprites.EnemyHandler;
 import svarttand.application.sprites.Player;
+import svarttand.application.states.PlayState;
 
 public class BulletHandler {
 	
 	private ArrayList<Bullet> bullets;
+	private PlayState state;
 	
-	public BulletHandler() {
+	public BulletHandler(PlayState state) {
 		bullets = new ArrayList<Bullet>();
+		this.state = state;
 	}
 
-	public void update(float delta, EnemyHandler enemyHandler, Player player) {
+	public void update(float delta, EnemyHandler enemyHandler, Player player, ParticleHandler particles) {
 		for (int i = 0; i < bullets.size(); i++) {
-			bullets.get(i).update(delta, enemyHandler, this, player);
+			bullets.get(i).update(delta, enemyHandler, this, player, particles);
 		}
 		
 	}
@@ -38,7 +42,7 @@ public class BulletHandler {
 
 	public void remove(Bullet bullet) {
 		bullets.remove(bullet);
-		
+		state.shake();
 	}
 
 }

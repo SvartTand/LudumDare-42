@@ -39,13 +39,18 @@ public class Map {
 									leavesMap[k][l] = new Tile("LeavesTile",k * TILE_SIZE, l *TILE_SIZE);
 								} catch (Exception e) {
 									// TODO: handle exception
-							}
+								}
 							
+							}
 						}
 					}
+				}else if (rand > 75) {
+					map[i][j] = new Tile("DirtTile",i * TILE_SIZE, j *TILE_SIZE);
+				}else if (rand > 40) {
+					map[i][j] = new Tile("DirtGrassTile",i * TILE_SIZE, j *TILE_SIZE);
 				}
-					}else{
-					map[i][j] = new Tile("GrassTile",i * TILE_SIZE, j *TILE_SIZE);
+				else{
+					map[i][j] = new Tile("DirtTile",i * TILE_SIZE, j *TILE_SIZE);
 				}
 				
 
