@@ -19,7 +19,7 @@ import svarttand.application.states.PlayState;
 public class Player extends Sprite{
 	public static final float MAX_SPEED = 100f;
 	private static final float ACCELERATION = 10f;
-	private static final float COOLDOWN = .5f;
+	private static final float COOLDOWN = .6f;
 	
 	
 	
@@ -35,7 +35,8 @@ public class Player extends Sprite{
 	private Animation shooting;
 	
 	private float cooldownToShoot;
-
+	private boolean shootingB;
+	
 	private Vector2 rotationV;
 	private float speedSide;
 	private float speedUp;
@@ -43,7 +44,7 @@ public class Player extends Sprite{
 	private Rectangle bounds;
 	private PlayState state;
 	
-	private boolean shootingB;
+	
 	
 	public Player(int posX, int posY, TextureAtlas atlas, PlayState state) {
 		super(atlas.findRegion("Walking"));

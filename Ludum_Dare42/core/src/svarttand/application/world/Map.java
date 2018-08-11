@@ -29,14 +29,22 @@ public class Map {
 					map[i][j] = new Tile("TreeTile",i * TILE_SIZE, j *TILE_SIZE);
 					for (int k = i-3; k < i+4; k++) {
 						for (int l = j-3; l < j+4; l++) {
-							try {
-								leavesMap[k][l] = new Tile("LeavesTile",k * TILE_SIZE, l *TILE_SIZE);
-							} catch (Exception e) {
-								// TODO: handle exception
+							if (k == i-3 && l == j-3 ||
+								k == i-3 && l == j+3 ||
+								k == i+3 && l == j-3 ||
+								k == i+3 && l == j+3) {
+								
+							}else{
+								try {
+									leavesMap[k][l] = new Tile("LeavesTile",k * TILE_SIZE, l *TILE_SIZE);
+								} catch (Exception e) {
+									// TODO: handle exception
 							}
+							
 						}
 					}
-				}else{
+				}
+					}else{
 					map[i][j] = new Tile("GrassTile",i * TILE_SIZE, j *TILE_SIZE);
 				}
 				
