@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import svarttand.application.Application;
 import svarttand.application.input.InputController;
 import svarttand.application.sprites.Bullet;
+import svarttand.application.sprites.EnemyHandler;
 import svarttand.application.sprites.Player;
 import svarttand.application.world.Map;
 
@@ -30,7 +31,7 @@ public class PlayState extends State{
 	private Player player;
 	private InputController controller;
 	private Map map;
-	
+	private EnemyHandler enemyHandler;
 	private ArrayList<Bullet> bullets;
 //	private BitmapFont font;
 //	private Label label;
@@ -46,6 +47,7 @@ public class PlayState extends State{
 		map = new Map();
 		Gdx.input.setInputProcessor(controller);
 		bullets = new ArrayList<Bullet>();
+		enemyHandler = new EnemyHandler();
 //		font = new BitmapFont();
 //		label = new Label("HELLO!", new LabelStyle(font, Color.WHITE));
 	}
@@ -62,6 +64,7 @@ public class PlayState extends State{
 
 	@Override
 	public void update(float delta) {
+		enemyHandler.update(delta, textureAtlas, player.getPosition());
 		handleInput(delta);
 		player.update(delta, controller.getMouse());
 		cam.position.x = player.getX();
@@ -81,7 +84,11 @@ public class PlayState extends State{
 		map.render(batch, textureAtlas);
 		for (int i = 0; i < bullets.size(); i++) {
 			bullets.get(i).draw(batch);
+			if (bullets.get(i).getTimer() >= 5) {
+				bullets.remove(i);
+			}
 		}
+		enemyHandler.render(batch);
 		player.draw(batch);
 		//batch.draw(textureAtlas.findRegion("Player"), 20, 20);
 		batch.end();
@@ -89,9 +96,7 @@ public class PlayState extends State{
 
 	@Override
 	public void dispose() {
-		for (int i = 0; i < bullets.size(); i++) {
-			bullets.get(i).dispose();
-		}
+		
 		
 	}
 

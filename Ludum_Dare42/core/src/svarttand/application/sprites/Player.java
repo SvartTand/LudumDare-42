@@ -12,7 +12,7 @@ import svarttand.application.Application;
 
 
 public class Player extends Sprite{
-	private static final float MAX_SPEED = 20f;
+	private static final float MAX_SPEED = 200f;
 	private static final float ACCELERATION = 10f;
 	private static final float DE_ACCELERATION = 0.5f;
 	
@@ -45,9 +45,11 @@ public class Player extends Sprite{
 			}
 			
 		}
-		float x = rotationV.x *speed *delta;
-		float y = rotationV.y *speed *delta;
+		float x = (float) MathUtils.cosDeg(getRotation()+90) *speed;
+		float y = (float) MathUtils.sinDeg(getRotation()+90) *speed;
+		System.out.println((float) MathUtils.cos(getRotation()+90) + ", " + (float) MathUtils.sin(getRotation()+90));
 		setPosition(getX() + x* delta, getY() + y *delta);
+
 		bounds.setPosition(getX(), getY());
 		
 	}
@@ -69,6 +71,11 @@ public class Player extends Sprite{
 	    rotationV.set(mouseX - (getX() + getWidth()/2), mouseY - (getY() + getHeight()/2f));
 		setRotation(rotation - 90);
 		
+	}
+
+	public Vector2 getPosition() {
+		// TODO Auto-generated method stub
+		return new Vector2(getX(), getY());
 	}
 	
 

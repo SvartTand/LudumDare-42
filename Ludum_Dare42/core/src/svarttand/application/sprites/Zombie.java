@@ -10,7 +10,7 @@ import svarttand.application.Application;
 
 public class Zombie extends Sprite{
 
-	private static final float MAX_SPEED = 20f;
+	private static final float MAX_SPEED = 50f;
 	private static final float ACCELERATION = 10f;
 	private static final float DETECTION = 0.5f;
 	
@@ -31,7 +31,7 @@ public class Zombie extends Sprite{
 	
 	public void update(float delta, Vector2 playerPos){
 		updateRotation(playerPos);
-		if (playerIsNear(playerPos)) {
+		if (!playerIsNear(playerPos)) {
 			if (speed != MAX_SPEED) {
 				speed += ACCELERATION;
 			}
@@ -43,9 +43,10 @@ public class Zombie extends Sprite{
 			}
 			
 		}
-		float x = rotationV.x *speed *delta;
-		float y = rotationV.y *speed *delta;
+		float x = (float) MathUtils.cosDeg(getRotation()+90) *speed;
+		float y = (float) MathUtils.sinDeg(getRotation()+90) *speed;
 		setPosition(getX() + x* delta, getY() + y *delta);
+
 		bounds.setPosition(getX(), getY());
 		
 	}
@@ -70,10 +71,10 @@ public class Zombie extends Sprite{
 	public void updateRotation(Vector2 playerPos) {
 		float rotation = 0;
 		float mouseX = playerPos.x;
-	    float mouseY = Application.V_HEIGHT - playerPos.y;
+	    float mouseY = playerPos.y;
 	    rotation = MathUtils.radiansToDegrees * MathUtils.atan2(mouseY - (getY() + getHeight()/2), mouseX - (getX() + getWidth()/2));
 	    rotationV.set(mouseX - (getX() + getWidth()/2), mouseY - (getY() + getHeight()/2f));
-		setRotation(rotation - 90);
+		setRotation(rotation- 90);
 		
 	}
 

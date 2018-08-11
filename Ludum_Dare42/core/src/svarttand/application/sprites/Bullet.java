@@ -32,15 +32,12 @@ public class Bullet extends Sprite{
 		//System.out.println(direaaaction.x + ", " + direction.y);
 		float speedx = direction.x * delta * SPEED;
 		float speedy = direction.y * delta * SPEED;
-		System.out.println(speedx + ", " + speedy);
+		//System.out.println(speedx + ", " + speedy);
 		setPosition(getX() + speedx, getY() + speedy);
 	}
 	public float getTimer(){
 		return timer;
 	}
 	
-	public void dispose(){
-		dispose();
-	}
 
 }
