@@ -40,9 +40,9 @@ public class LoadingState extends State{
     
 
     private void load(){
-        for (int i = 0; i < audioPaths.length; i++) {
-        	gsm.assetManager.load(audioPaths[i], Sound.class);
-        }
+//        for (int i = 0; i < audioPaths.length; i++) {
+//        	gsm.assetManager.load(audioPaths[i], Sound.class);
+//        }
         gsm.assetManager.load(ATLAS_PATH, TextureAtlas.class);
         loaded = true;
     }
@@ -60,7 +60,7 @@ public class LoadingState extends State{
         gsm.assetManager.update();
         if (gsm.assetManager.getProgress() >= 1){
         	
-            gsm.set(new MenuState(gsm));
+            gsm.set(new PlayState(gsm));
             dispose();
             
         }

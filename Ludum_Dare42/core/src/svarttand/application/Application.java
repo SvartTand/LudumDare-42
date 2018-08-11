@@ -3,8 +3,6 @@ package svarttand.application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import svarttand.application.states.GameStateManager;
 import svarttand.application.states.LoadingState;
@@ -19,6 +17,7 @@ public class Application extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
+		Gdx.graphics.setResizable(false);
 		assetManager = new AssetManager();
 		batch = new SpriteBatch();
 		gsm = new GameStateManager(assetManager);
