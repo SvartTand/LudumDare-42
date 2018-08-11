@@ -9,8 +9,8 @@ import svarttand.application.states.LoadingState;
 
 
 public class Application extends ApplicationAdapter {
-	public static final int V_WIDTH = 1000;
-	public static final int V_HEIGHT = 1000;
+	public static final int V_WIDTH = 800;
+	public static final int V_HEIGHT = 800;
 	private SpriteBatch batch;
 	private GameStateManager gsm;
 	private AssetManager assetManager;

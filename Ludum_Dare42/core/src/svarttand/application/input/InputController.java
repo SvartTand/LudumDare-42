@@ -19,7 +19,7 @@ public class InputController implements InputProcessor{
 
 	@Override
 	public boolean keyDown(int keycode) {
-		if (keycode == Keys.A) {
+		if (keycode == Keys.V) {
 //			Gdx.graphics.setWindowedMode(Gdx.graphics.getWidth() -100, Gdx.graphics.getHeight() -100);
 //			state.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			state.shake();

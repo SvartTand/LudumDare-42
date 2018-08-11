@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class Map {
 	
-	private static final int SIZE = 50;
+	private static final int SIZE = 100;
 	private static final int TILE_SIZE = 32;
 	private Tile[][] map;
 	private Tile[][] leavesMap;
@@ -25,7 +25,6 @@ public class Map {
 			for (int j = 0; j < map[i].length; j++) {
 				double rand =Math.random() * 100 +1;
 				rand = (int) rand;
-				System.out.println(rand);
 				if (rand == 5) {
 					map[i][j] = new Tile("TreeTile",i * TILE_SIZE, j *TILE_SIZE);
 					for (int k = i-3; k < i+4; k++) {
@@ -37,7 +36,6 @@ public class Map {
 							}
 						}
 					}
-					System.out.println("yo");
 				}else{
 					map[i][j] = new Tile("GrassTile",i * TILE_SIZE, j *TILE_SIZE);
 				}
@@ -68,6 +66,9 @@ public class Map {
 				
 			}
 		}
+	}
+	public float getWorldSize(){
+		return TILE_SIZE * SIZE;
 	}
 	
 

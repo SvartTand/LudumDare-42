@@ -18,10 +18,15 @@ public class EnemyHandler {
 		timer = 0;
 	}
 	
-	public void update(float delta, TextureAtlas atlas, Vector2 playerPos, BulletHandler handler){
+	public void update(float delta, TextureAtlas atlas, Vector2 playerPos, BulletHandler handler, float worldSize){
 		timer += delta;
-		if (timer >= 2) {
-			enemies.add(new Zombie(atlas, 100, 100));
+		if (timer >= 1) {
+			double randx =Math.random() * worldSize +1;
+			float x = (float) randx;
+			double randy =Math.random() * worldSize +1;
+			float y = (float) randy;
+			
+			enemies.add(new Zombie(atlas, x, y));
 			timer = 0;
 		}
 		for (int i = 0; i < enemies.size(); i++) {

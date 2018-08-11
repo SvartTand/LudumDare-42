@@ -10,12 +10,17 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
 import svarttand.application.Application;
 import svarttand.application.input.InputController;
 import svarttand.application.misc.ScreenShake;
@@ -39,6 +44,10 @@ public class PlayState extends State{
 	private AttackHandler attackHandler;
 	
 	private ScreenShake screenShake;
+	
+	private World world;
+	private RayHandler rayHandler;
+	private PointLight light;
 //	private BitmapFont font;
 //	private Label label;
 	//private LabelStyle style;
@@ -46,9 +55,9 @@ public class PlayState extends State{
 	public PlayState(GameStateManager gsm) {
 		super(gsm);
 		textureAtlas = gsm.assetManager.get("ThePack.pack", TextureAtlas.class);
-		viewport = new StretchViewport(Application.V_WIDTH, Application.V_HEIGHT, cam);
+		viewport = new FitViewport(Application.V_WIDTH, Application.V_HEIGHT, cam);
 		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		player = new Player(0, 0, textureAtlas, this);
+		player = new Player(500, 500, textureAtlas, this);
 		controller = new InputController(this);
 		map = new Map();
 		Gdx.input.setInputProcessor(controller);
@@ -56,6 +65,13 @@ public class PlayState extends State{
 		enemyHandler = new EnemyHandler();
 		attackHandler = new AttackHandler();
 		screenShake = new ScreenShake();
+		
+//		world = new World(new Vector2(Application.V_WIDTH,Application.V_HEIGHT),false);
+//		rayHandler = new RayHandler(world);
+//		rayHandler.setCombinedMatrix(cam.combined);
+//		light = new PointLight(rayHandler,100, Color.YELLOW,300,100,100);
+//		
+//		rayHandler.setAmbientLight(.7f);
 //		font = new BitmapFont();
 //		label = new Label("HELLO!", new LabelStyle(font, Color.WHITE));
 	}
@@ -63,9 +79,16 @@ public class PlayState extends State{
 	@Override
 	protected void handleInput(float delta) {
 		if (Gdx.input.isKeyPressed(Keys.W)) {
-			player.setPressed(true);
-		}else{
-			player.setPressed(false);
+			player.setSpeedUp(Player.MAX_SPEED);
+		}
+		if (Gdx.input.isKeyPressed(Keys.S)) {
+			player.setSpeedUp(-Player.MAX_SPEED);
+		}
+		if (Gdx.input.isKeyPressed(Keys.A)) {
+			player.setSpeedSide(-Player.MAX_SPEED);
+		}
+		if (Gdx.input.isKeyPressed(Keys.D)) {
+			player.setSpeedSide(Player.MAX_SPEED);
 		}
 		
 	}
@@ -73,31 +96,39 @@ public class PlayState extends State{
 	@Override
 	public void update(float delta) {
 		
-		enemyHandler.update(delta, textureAtlas, player.getPosition(), bullets);
+		
+		enemyHandler.update(delta, textureAtlas, player.getPosition(), bullets, map.getWorldSize());
 		handleInput(delta);
-		player.update(delta, controller.getMouse());
+		player.update(delta, controller.getMouse(), textureAtlas, bullets);
+		
 		cam.position.x = player.getX();
 		cam.position.y = player.getY();
 		bullets.update(delta, enemyHandler, player);
 		attackHandler.update(delta);
+		//light.setPosition(player.getPosition().x, player.getPosition().y);
 	}
 
 	@Override
 	public void render(SpriteBatch batch, float delta) {
 		screenShake.update(delta, cam);
-		batch.setProjectionMatrix(cam.combined);
-		cam.update();
+		
 		Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.setProjectionMatrix(cam.combined);
+		cam.update();
 		batch.begin();
 		map.render(batch, textureAtlas);
 		bullets.render(batch);
 		enemyHandler.render(batch);
+
 		player.draw(batch);
 		attackHandler.render(batch, textureAtlas);
 		map.renderLeaves(batch, textureAtlas);
 		//batch.draw(textureAtlas.findRegion("Player"), 20, 20);
+		
 		batch.end();
+		//rayHandler.updateAndRender();
+		
 	}
 
 	@Override
@@ -128,7 +159,8 @@ public class PlayState extends State{
 	}
 
 	public void addBullet() {
-		bullets.add(new Bullet(textureAtlas, player.getPosition().x, player.getPosition().y, player.getRotation(), false, "Bullet"));
+		player.shoot();
+		
 		
 	}
 

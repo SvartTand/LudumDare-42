@@ -15,7 +15,7 @@ public class Bullet extends Sprite{
 	
 	private static final int SPEED = 300;
 	private static final int SIZE = 3;
-	private static final float DMG = 5;
+	private static final float DMG = 10;
 	
 	private Rectangle bounds;
 	private Vector2 direction;

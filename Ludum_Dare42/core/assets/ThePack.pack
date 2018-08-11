@@ -5,32 +5,158 @@ filter: Nearest,Nearest
 repeat: none
 GrassTile
   rotate: false
-  xy: 1, 21
+  xy: 1, 89
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 LeavesTile
   rotate: false
-  xy: 35, 21
+  xy: 1, 55
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 Player
   rotate: false
-  xy: 69, 21
+  xy: 35, 89
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
+Shooting
+  rotate: false
+  xy: 1, 21
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+Walking
+  rotate: false
+  xy: 1, 21
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+Walking
+  rotate: false
+  xy: 1, 21
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+Shooting
+  rotate: false
+  xy: 35, 55
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+Shooting
+  rotate: false
+  xy: 35, 55
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 9
+Shooting
+  rotate: false
+  xy: 69, 89
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 2
+Shooting
+  rotate: false
+  xy: 69, 89
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 8
+Shooting
+  rotate: false
+  xy: 35, 21
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+Shooting
+  rotate: false
+  xy: 35, 21
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 7
+Shooting
+  rotate: false
+  xy: 69, 55
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 4
+Shooting
+  rotate: false
+  xy: 103, 89
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 5
+Shooting
+  rotate: false
+  xy: 69, 21
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 6
 TreeTile
+  rotate: false
+  xy: 103, 55
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Walking
+  rotate: false
+  xy: 137, 89
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
+Walking
   rotate: false
   xy: 103, 21
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: -1
+  index: 2
+Walking
+  rotate: false
+  xy: 137, 55
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 3
+Walking
+  rotate: false
+  xy: 171, 89
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 5
+Walking
+  rotate: false
+  xy: 137, 21
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 6
+Walking
+  rotate: false
+  xy: 171, 55
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 7
 Attack
   rotate: false
   xy: 1, 1
@@ -40,28 +166,28 @@ Attack
   index: 0
 Attack
   rotate: false
-  xy: 137, 35
+  xy: 205, 103
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 1
 Attack
   rotate: false
-  xy: 21, 1
+  xy: 171, 35
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 2
 Attack
   rotate: false
-  xy: 157, 35
+  xy: 21, 1
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 3
 Bullet
   rotate: false
-  xy: 137, 23
+  xy: 205, 91
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
