@@ -29,7 +29,7 @@ public class Bullet extends Sprite{
 	
 	public void update(float delta){
 		timer += delta;
-		//System.out.println(direction.x + ", " + direction.y);
+		//System.out.println(direaaaction.x + ", " + direction.y);
 		float speedx = direction.x * delta * SPEED;
 		float speedy = direction.y * delta * SPEED;
 		System.out.println(speedx + ", " + speedy);

@@ -1,20 +1,18 @@
 package svarttand.application.sprites;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import svarttand.application.Application;
 
+public class Zombie extends Sprite{
 
-public class Player extends Sprite{
 	private static final float MAX_SPEED = 20f;
 	private static final float ACCELERATION = 10f;
-	private static final float DE_ACCELERATION = 0.5f;
+	private static final float DETECTION = 0.5f;
 	
 
 	private Vector2 rotationV;
@@ -22,18 +20,18 @@ public class Player extends Sprite{
 	private boolean isPressed;
 	private Rectangle bounds;
 	
-	public Player(int posX, int posY, TextureAtlas atlas) {
+	public Zombie(TextureAtlas atlas, float x, float y) {
 		super(atlas.findRegion("Player"));
 		rotationV = new Vector2();
-		bounds = new Rectangle(posX, posY, 20, 20);
+		bounds = new Rectangle(x, y, 20, 20);
 		
 		speed = 0;
-		setPosition(20, 20);
+		setPosition(x, y);
 	}
 	
-	public void update(float delta, Vector2 mouse){
-		updateRotation(mouse);
-		if (isPressed) {
+	public void update(float delta, Vector2 playerPos){
+		updateRotation(playerPos);
+		if (playerIsNear(playerPos)) {
 			if (speed != MAX_SPEED) {
 				speed += ACCELERATION;
 			}
@@ -52,6 +50,14 @@ public class Player extends Sprite{
 		
 	}
 	
+	private boolean playerIsNear(Vector2 playerPos) {
+		float dist = (float) Math.sqrt(Math.pow(playerPos.x - getX(),2)+ Math.pow(playerPos.y - getY(), 2));
+		if (dist <= DETECTION) {
+			return true;
+		}
+		return false;
+	}
+
 	public void setPressed(boolean b){
 		isPressed = b;
 	}
@@ -61,15 +67,14 @@ public class Player extends Sprite{
 		dispose();
 	}
 
-	public void updateRotation(Vector2 mouse) {
+	public void updateRotation(Vector2 playerPos) {
 		float rotation = 0;
-		float mouseX = mouse.x;
-	    float mouseY = Application.V_HEIGHT - mouse.y;
+		float mouseX = playerPos.x;
+	    float mouseY = Application.V_HEIGHT - playerPos.y;
 	    rotation = MathUtils.radiansToDegrees * MathUtils.atan2(mouseY - (getY() + getHeight()/2), mouseX - (getX() + getWidth()/2));
 	    rotationV.set(mouseX - (getX() + getWidth()/2), mouseY - (getY() + getHeight()/2f));
 		setRotation(rotation - 90);
 		
 	}
-	
 
 }
