@@ -2,32 +2,45 @@ package svarttand.application;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import svarttand.application.states.GameStateManager;
+import svarttand.application.states.LoadingState;
+
 
 public class Application extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+	public static final int V_WIDTH = 800;
+	public static final int V_HEIGHT = 800;
+	private SpriteBatch batch;
+	private GameStateManager gsm;
+	private AssetManager assetManager;
 	
 	@Override
 	public void create () {
+		assetManager = new AssetManager();
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		gsm = new GameStateManager(assetManager);
+		LoadingState loadingState = new LoadingState(gsm);
+		gsm.push(loadingState);
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+		gsm.update(Gdx.graphics.getDeltaTime());
+		
+		gsm.render(batch,Gdx.graphics.getDeltaTime());
 	}
-	
+
 	@Override
 	public void dispose () {
-		batch.dispose();
-		img.dispose();
+		gsm.dispose();
+	}
+
+	@Override
+	public void resize(int width, int height){
+		gsm.resize(width, height);
+
 	}
 }
