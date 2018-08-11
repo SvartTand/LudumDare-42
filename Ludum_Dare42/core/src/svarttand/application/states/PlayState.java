@@ -18,9 +18,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import svarttand.application.Application;
 import svarttand.application.input.InputController;
-import svarttand.application.sprites.Bullet;
 import svarttand.application.sprites.EnemyHandler;
 import svarttand.application.sprites.Player;
+import svarttand.application.sprites.effects.Bullet;
+import svarttand.application.sprites.effects.BulletHandler;
 import svarttand.application.world.Map;
 
 
@@ -32,7 +33,7 @@ public class PlayState extends State{
 	private InputController controller;
 	private Map map;
 	private EnemyHandler enemyHandler;
-	private ArrayList<Bullet> bullets;
+	private BulletHandler bullets;
 //	private BitmapFont font;
 //	private Label label;
 	//private LabelStyle style;
@@ -46,7 +47,7 @@ public class PlayState extends State{
 		controller = new InputController(this);
 		map = new Map();
 		Gdx.input.setInputProcessor(controller);
-		bullets = new ArrayList<Bullet>();
+		bullets = new BulletHandler();
 		enemyHandler = new EnemyHandler();
 //		font = new BitmapFont();
 //		label = new Label("HELLO!", new LabelStyle(font, Color.WHITE));
@@ -69,9 +70,7 @@ public class PlayState extends State{
 		player.update(delta, controller.getMouse());
 		cam.position.x = player.getX();
 		cam.position.y = player.getY();
-		for (int i = 0; i < bullets.size(); i++) {
-			bullets.get(i).update(delta);
-		}
+		bullets.update(delta, enemyHandler);
 	}
 
 	@Override
@@ -82,12 +81,7 @@ public class PlayState extends State{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		map.render(batch, textureAtlas);
-		for (int i = 0; i < bullets.size(); i++) {
-			bullets.get(i).draw(batch);
-			if (bullets.get(i).getTimer() >= 5) {
-				bullets.remove(i);
-			}
-		}
+		bullets.render(batch);
 		enemyHandler.render(batch);
 		player.draw(batch);
 		//batch.draw(textureAtlas.findRegion("Player"), 20, 20);
@@ -122,7 +116,12 @@ public class PlayState extends State{
 	}
 
 	public void addBullet() {
-		bullets.add(new Bullet(textureAtlas, player.getX(), player.getY(), player.getRotation()));
+		bullets.add(new Bullet(textureAtlas, player.getPosition().x, player.getPosition().y, player.getRotation()));
+		
+	}
+
+	public void addAttack() {
+		// TODO Auto-generated method stub
 		
 	}
 

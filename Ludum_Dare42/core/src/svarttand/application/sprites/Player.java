@@ -47,7 +47,7 @@ public class Player extends Sprite{
 		}
 		float x = (float) MathUtils.cosDeg(getRotation()+90) *speed;
 		float y = (float) MathUtils.sinDeg(getRotation()+90) *speed;
-		System.out.println((float) MathUtils.cos(getRotation()+90) + ", " + (float) MathUtils.sin(getRotation()+90));
+		//System.out.println((float) MathUtils.cos(getRotation()+90) + ", " + (float) MathUtils.sin(getRotation()+90));
 		setPosition(getX() + x* delta, getY() + y *delta);
 
 		bounds.setPosition(getX(), getY());
@@ -75,7 +75,7 @@ public class Player extends Sprite{
 
 	public Vector2 getPosition() {
 		// TODO Auto-generated method stub
-		return new Vector2(getX(), getY());
+		return new Vector2(getX()+getRegionWidth()*0.5f, getY()+getRegionHeight()*0.5f);
 	}
 	
 

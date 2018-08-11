@@ -33,4 +33,16 @@ public class EnemyHandler {
 		}
 	}
 
+	public ArrayList<Zombie> getEnemies() {
+		return enemies;
+	}
+	
+	public void dmg(int i, float dmg){
+		System.out.println("dmg");
+		if (enemies.get(i).dmg(dmg)) {
+			enemies.remove(i);
+			//Effect!!
+		}
+	}
+
 }

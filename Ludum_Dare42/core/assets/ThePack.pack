@@ -5,22 +5,29 @@ filter: Nearest,Nearest
 repeat: none
 GrassTile
   rotate: false
-  xy: 1, 6
+  xy: 1, 13
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 Player
   rotate: false
-  xy: 35, 6
+  xy: 35, 13
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-Bullet
+Attack
   rotate: false
   xy: 1, 1
-  size: 3, 3
-  orig: 3, 3
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
+Bullet
+  rotate: false
+  xy: 69, 35
+  size: 10, 10
+  orig: 10, 10
   offset: 0, 0
   index: -1

@@ -39,8 +39,13 @@ public class InputController implements InputProcessor{
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		System.out.println("shoot");
-		state.addBullet();
+		System.out.println("shoot " + button);
+		if (button == 0) {
+			state.addBullet();
+		}else if (button == 1) {
+			state.addAttack();
+		}
+		
 		
 		return false;
 	}
