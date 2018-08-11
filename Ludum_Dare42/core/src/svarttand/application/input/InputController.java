@@ -1,7 +1,10 @@
 package svarttand.application.input;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
-
+import com.badlogic.gdx.math.Vector2;
+import svarttand.application.Application;
 import svarttand.application.states.PlayState;
 
 public class InputController implements InputProcessor{
@@ -15,13 +18,12 @@ public class InputController implements InputProcessor{
 
 	@Override
 	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -51,7 +53,7 @@ public class InputController implements InputProcessor{
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
+		state.getPlayer().updateRotation(convertToGameCordinates(screenX, screenY));
 		return false;
 	}
 
@@ -59,6 +61,34 @@ public class InputController implements InputProcessor{
 	public boolean scrolled(int amount) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	private Vector2 convertToGameCordinates(int x, int y){
+		Vector2 v = new Vector2(0,0);
+		
+		float w = Gdx.graphics.getWidth();
+		float h = Gdx.graphics.getHeight();
+		
+		 w = w / Application.V_WIDTH;
+		 h = h / Application.V_HEIGHT;
+		 
+		 w = x / w;
+		 h = y / h;
+		 
+		 w = (float) (state.getCam().position.x + w - Application.V_WIDTH * 0.5);
+		 h = (float) ( -state.getCam().position.y + h + Application.V_HEIGHT*0.5);
+		 
+		 
+		 v.x = w;
+		 v.y = h;
+		
+		return v;
+	}
+
+
+	public Vector2 getMouse() {
+		// TODO Auto-generated method stub
+		return convertToGameCordinates(Gdx.input.getX(), Gdx.input.getY());
 	}
 
 }
