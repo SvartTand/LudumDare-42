@@ -1,5 +1,7 @@
 package svarttand.application.states;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
@@ -16,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import svarttand.application.Application;
 import svarttand.application.input.InputController;
+import svarttand.application.sprites.Bullet;
 import svarttand.application.sprites.Player;
 import svarttand.application.world.Map;
 
@@ -27,6 +30,8 @@ public class PlayState extends State{
 	private Player player;
 	private InputController controller;
 	private Map map;
+	
+	private ArrayList<Bullet> bullets;
 //	private BitmapFont font;
 //	private Label label;
 	//private LabelStyle style;
@@ -40,6 +45,7 @@ public class PlayState extends State{
 		controller = new InputController(this);
 		map = new Map();
 		Gdx.input.setInputProcessor(controller);
+		bullets = new ArrayList<Bullet>();
 //		font = new BitmapFont();
 //		label = new Label("HELLO!", new LabelStyle(font, Color.WHITE));
 	}
@@ -60,6 +66,9 @@ public class PlayState extends State{
 		player.update(delta, controller.getMouse());
 		cam.position.x = player.getX();
 		cam.position.y = player.getY();
+		for (int i = 0; i < bullets.size(); i++) {
+			bullets.get(i).update(delta);
+		}
 	}
 
 	@Override
@@ -70,6 +79,9 @@ public class PlayState extends State{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		map.render(batch, textureAtlas);
+		for (int i = 0; i < bullets.size(); i++) {
+			bullets.get(i).draw(batch);
+		}
 		player.draw(batch);
 		//batch.draw(textureAtlas.findRegion("Player"), 20, 20);
 		batch.end();
@@ -77,7 +89,9 @@ public class PlayState extends State{
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		for (int i = 0; i < bullets.size(); i++) {
+			bullets.get(i).dispose();
+		}
 		
 	}
 
@@ -100,6 +114,11 @@ public class PlayState extends State{
 	public OrthographicCamera getCam() {
 		// TODO Auto-generated method stub
 		return cam;
+	}
+
+	public void addBullet() {
+		bullets.add(new Bullet(textureAtlas, player.getX(), player.getY(), player.getRotation()));
+		
 	}
 
 }
