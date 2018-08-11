@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import svarttand.application.sprites.EnemyHandler;
+import svarttand.application.sprites.Player;
 
 public class BulletHandler {
 	
@@ -14,9 +15,9 @@ public class BulletHandler {
 		bullets = new ArrayList<Bullet>();
 	}
 
-	public void update(float delta, EnemyHandler enemyHandler) {
+	public void update(float delta, EnemyHandler enemyHandler, Player player) {
 		for (int i = 0; i < bullets.size(); i++) {
-			bullets.get(i).update(delta, enemyHandler, this);
+			bullets.get(i).update(delta, enemyHandler, this, player);
 		}
 		
 	}

@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import svarttand.application.sprites.EnemyHandler;
+import svarttand.application.sprites.Player;
 
 public class Bullet extends Sprite{
 	
@@ -19,22 +20,24 @@ public class Bullet extends Sprite{
 	private Rectangle bounds;
 	private Vector2 direction;
 	private float timer;
+	private boolean enemy;
 	
-	public Bullet(TextureAtlas atlas, float f, float g, float rotation) {
-		super(atlas.findRegion("Bullet"));
+	public Bullet(TextureAtlas atlas, float f, float g, float rotation, boolean enemy, String path) {
+		super(atlas.findRegion(path));
 		timer = 0;
 		bounds = new Rectangle(f, g, SIZE,SIZE);
 		setPosition(f, g);
 		System.out.println(f + ", " + g);
 		setRotation(rotation);
 		rotation += 90;
+		this.enemy = enemy;
 		direction = new Vector2(MathUtils.cosDeg(rotation), MathUtils.sinDeg(rotation));
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void update(float delta, EnemyHandler handler, BulletHandler bhandler){
+	public void update(float delta, EnemyHandler handler, BulletHandler bhandler, Player player){
 		
-		checkBounds(handler, bhandler);
+		checkBounds(handler, bhandler, player);
 		timer += delta;
 		//System.out.println(direaaaction.x + ", " + direction.y);
 		float speedx = direction.x * delta * SPEED;
@@ -44,13 +47,21 @@ public class Bullet extends Sprite{
 		
 		bounds.setPosition(getX(), getY());
 	}
-	private void checkBounds(EnemyHandler handler, BulletHandler bHandler) {
-		for (int i = 0; i < handler.getEnemies().size(); i++) {
-			if (bounds.overlaps(handler.getEnemies().get(i).getBounds())) {
-				handler.dmg(i, DMG);
+	private void checkBounds(EnemyHandler handler, BulletHandler bHandler, Player player ) {
+		if (enemy) {
+			if (bounds.overlaps(player.getBounds())) {
+				player.takeDmg(DMG);
 				bHandler.remove(this);
 			}
+		}else{
+			for (int i = 0; i < handler.getEnemies().size(); i++) {
+				if (bounds.overlaps(handler.getEnemies().get(i).getBounds())) {
+					handler.dmg(i, DMG);
+					bHandler.remove(this);
+				}
+			}
 		}
+		
 		
 		
 	}

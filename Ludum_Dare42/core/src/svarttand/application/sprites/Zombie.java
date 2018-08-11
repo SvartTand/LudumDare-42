@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import svarttand.application.Application;
+import svarttand.application.sprites.effects.Bullet;
+import svarttand.application.sprites.effects.BulletHandler;
 
 public class Zombie extends Sprite{
 
@@ -14,12 +16,14 @@ public class Zombie extends Sprite{
 	private static final float ACCELERATION = 10f;
 	private static final float DETECTION = 500;
 	private static final int HP = 10;
+	private static final float COOLDOWN = 2.5f;
 
 	private Vector2 rotationV;
 	private float speed;
 	private boolean isPressed;
 	private Rectangle bounds;
 	private float hp;
+	private float timer;
 	
 	public Zombie(TextureAtlas atlas, float x, float y) {
 		super(atlas.findRegion("Player"));
@@ -27,14 +31,21 @@ public class Zombie extends Sprite{
 		bounds = new Rectangle(x, y, 20, 20);
 		hp = HP;
 		speed = 0;
+		timer = 0;
 		setPosition(x, y);
 	}
 	
-	public void update(float delta, Vector2 playerPos){
+	public void update(float delta, Vector2 playerPos, BulletHandler handler, TextureAtlas atlas){
+		timer += delta;
+		
 		updateRotation(playerPos);
 		if (playerIsNear(playerPos)) {
 			if (speed != MAX_SPEED) {
 				speed += ACCELERATION;
+			}
+			if (timer >= COOLDOWN) {
+				handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), true, "Bullet"));
+				timer = 0;
 			}
 		}else{
 			if (speed <= 0){
@@ -91,6 +102,11 @@ public class Zombie extends Sprite{
 			return true;
 		}
 		return false;
+	}
+	
+	public Vector2 getPosition() {
+		// TODO Auto-generated method stub
+		return new Vector2(getX()+getRegionWidth()*0.5f, getY()+getRegionHeight()*0.5f);
 	}
 
 }

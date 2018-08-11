@@ -5,28 +5,28 @@ filter: Nearest,Nearest
 repeat: none
 GrassTile
   rotate: false
-  xy: 1, 13
+  xy: 1, 21
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 LeavesTile
   rotate: false
-  xy: 35, 13
+  xy: 35, 21
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 Player
   rotate: false
-  xy: 69, 13
+  xy: 69, 21
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 TreeTile
   rotate: false
-  xy: 103, 13
+  xy: 103, 21
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -34,13 +34,34 @@ TreeTile
 Attack
   rotate: false
   xy: 1, 1
-  size: 10, 10
-  orig: 10, 10
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
-  index: -1
-Bullet
+  index: 0
+Attack
   rotate: false
   xy: 137, 35
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 1
+Attack
+  rotate: false
+  xy: 21, 1
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 2
+Attack
+  rotate: false
+  xy: 157, 35
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 3
+Bullet
+  rotate: false
+  xy: 137, 23
   size: 10, 10
   orig: 10, 10
   offset: 0, 0

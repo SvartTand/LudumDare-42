@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import svarttand.application.Application;
+import svarttand.application.states.PlayState;
 
 
 public class Player extends Sprite{
@@ -21,12 +22,13 @@ public class Player extends Sprite{
 	private float speed;
 	private boolean isPressed;
 	private Rectangle bounds;
+	private PlayState state;
 	
-	public Player(int posX, int posY, TextureAtlas atlas) {
+	public Player(int posX, int posY, TextureAtlas atlas, PlayState state) {
 		super(atlas.findRegion("Player"));
 		rotationV = new Vector2();
 		bounds = new Rectangle(posX, posY, 20, 20);
-		
+		this.state = state;
 		speed = 0;
 		setPosition(20, 20);
 	}
@@ -76,6 +78,17 @@ public class Player extends Sprite{
 	public Vector2 getPosition() {
 		// TODO Auto-generated method stub
 		return new Vector2(getX()+getRegionWidth()*0.5f, getY()+getRegionHeight()*0.5f);
+	}
+
+	public Rectangle getBounds() {
+		// TODO Auto-generated method stub
+		return bounds;
+	}
+
+	public void takeDmg(float dmg) {
+		state.dmg();
+		
+		
 	}
 	
 
