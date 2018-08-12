@@ -213,6 +213,9 @@ public class PlayState extends State{
 		Gdx.graphics.setWindowedMode(Gdx.graphics.getWidth() -100, Gdx.graphics.getHeight() -100);
 		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		ui.resize(Gdx.graphics.getWidth());
+		if (player.getHP() == 0) {
+			defeat();
+		}
 		//screenShake.shake(100, 1000, 1000);
 		
 	}
@@ -226,6 +229,16 @@ public class PlayState extends State{
 	
 	public AudioHandler getAudioHandler(){
 		return audioHandler;
+	}
+	public void defeat(){
+		System.out.println("DEFEAT");
+		Gdx.app.exit();
+	}
+
+	public void victory() {
+		System.out.println("VICTORYs");
+		Gdx.app.exit();
+		
 	}
 
 }

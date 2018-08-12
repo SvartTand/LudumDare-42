@@ -82,7 +82,7 @@ public class Map {
 			pickups.get(i).update(delta);
 			if (pickups.get(i).getBoundingRectangle().overlaps(player.getBounds())) {
 				if (pickups.get(i).getHp() > 0) {
-					if (player.getHP() >= 9) {
+					if (player.getHP() >= player.MAXHP) {
 						//audioHandler.playSound(AudioHandler.EXPLOSION);
 						break;
 					}

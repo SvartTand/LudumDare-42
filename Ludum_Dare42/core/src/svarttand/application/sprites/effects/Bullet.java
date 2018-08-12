@@ -65,6 +65,15 @@ public class Bullet extends Sprite{
 					bHandler.remove(this);
 				}
 			}
+			if(handler.getBoss() != null){
+				
+				if (handler.getBoss().getBoundingRectangle().overlaps(bounds)) {
+					handler.dmgBoss(DMG);
+					particles.addParticleEffect(ParticleType.HIT, getX(), getY(),45);
+					bHandler.remove(this);
+				}
+				
+			}
 		}
 		
 		

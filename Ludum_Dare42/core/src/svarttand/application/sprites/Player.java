@@ -1,6 +1,7 @@
 package svarttand.application.sprites;
 
-import com.badlogic.gdx.Gdx;
+
+
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -25,7 +26,7 @@ public class Player extends Sprite{
 	private static final float ACCELERATION = 10f;
 	private static final float COOLDOWN = .6f;
 	
-	
+	public static final int MAXHP = 6;
 	
 	public enum State {STANDING, WALKING,SHOOTING};
 	public State currentState;
@@ -72,7 +73,7 @@ public class Player extends Sprite{
 		shootingB = false;
 		
 		ammo = 10;
-		hp = 9;
+		hp = MAXHP;
 	}
 	
 	public void update(float delta, Vector2 mouse, TextureAtlas atlas, BulletHandler handler, ScreenShake screenShake, ParticleHandler pHandler, AudioHandler audio){

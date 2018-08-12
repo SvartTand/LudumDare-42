@@ -11,6 +11,8 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import svarttand.application.Application;
+import svarttand.application.sprites.EnemyHandler;
+import svarttand.application.sprites.Player;
 import svarttand.application.states.PlayState;
 
 public class PlayUI {
@@ -35,7 +37,7 @@ public class PlayUI {
 		
 		font = new BitmapFont();
 		labelStyle = new LabelStyle(font, Color.WHITE);
-		kilLabel = new Label("Kill Count: 0", labelStyle);
+		kilLabel = new Label("Kill Count: 0/" + EnemyHandler.GOAL, labelStyle);
 		kilLabel.setPosition(Application.V_WIDTH*0.5f, Application.V_HEIGHT *0.9f);
 		stage.addActor(kilLabel);
 		
@@ -43,7 +45,7 @@ public class PlayUI {
 		ammoLabel.setPosition(Application.V_WIDTH*0.05f, Application.V_HEIGHT *0.05f);
 		stage.addActor(ammoLabel);
 		
-		hpLabel = new Label("Hp: 9/9", labelStyle);
+		hpLabel = new Label("Hp: "+Player.MAXHP+"/"+Player.MAXHP, labelStyle);
 		hpLabel.setPosition(Application.V_WIDTH*0.05f, Application.V_HEIGHT *0.03f);
 		stage.addActor(hpLabel);
 	}
@@ -53,9 +55,9 @@ public class PlayUI {
 	}
 
 	public void update(float delta, int kills) {
-		kilLabel.setText("Kill Count: " + kills);
+		kilLabel.setText("Kill Count: " + kills +"/"+ EnemyHandler.GOAL);
 		ammoLabel.setText("Ammo: " + state.getPlayer().getAmmo());
-		hpLabel.setText("Hp: " + state.getPlayer().getHP() + "/9");
+		hpLabel.setText("Hp: " + state.getPlayer().getHP() + "/" + Player.MAXHP);
 	}
 	
 	public void resize(float scale){
