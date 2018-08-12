@@ -46,6 +46,11 @@ public class Boss extends Sprite{
 	private boolean machineGun;
 	private float machineTimer;
 	
+	private boolean slingerGun;
+	private float slingerTimer;
+	private float slingerCounter;
+	private float slingerRotation;
+	
 	public Boss(TextureAtlas atlas, float x, float y) {
 		super(atlas.findRegion("Boss"));
 		rotationV = new Vector2();
@@ -64,6 +69,8 @@ public class Boss extends Sprite{
 		currentState = State.STANDING;
 		cooldownToShoot = COOLDOWN_Effect;
 		shootingB = false;
+		slingerGun = false;
+		slingerCounter = 0;
 	}
 	
 	public void update(float delta, Vector2 playerPos, BulletHandler handler, TextureAtlas atlas, ParticleHandler pHandler, AudioHandler audioHandler){
@@ -78,20 +85,27 @@ public class Boss extends Sprite{
 				
 				shootingB = true;
 				if (cooldownToShoot <= 0 && !machineGun) {
-					double rand =Math.random() * 2 +1;
+					double rand =Math.random() * 4 +1;
 					rand = (int) rand;
 					System.out.println(rand);
 					if (rand == 1) {
-						handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), true, "BigBullet"));
+						handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), true, "BigBullet", 350));
 						pHandler.addParticleEffect(ParticleType.ZFIRE, getPosition().x, getPosition().y, getRotation()+90);
 						timer = 0;
 						shootingB = false;
 						cooldownToShoot = COOLDOWN_Effect;
 						audioHandler.playSound(AudioHandler.Shoot_2);
+					}else if (rand == 2) {
+						slingerGun = true;
+						slingerTimer = 0.1f;
+						slingerCounter = 0;
+						slingerRotation = getRotation();
+						audioHandler.playSound(AudioHandler.Shoot_2);
+						cooldownToShoot = COOLDOWN_Effect;
 					}else {
 						
 						machineGun = true;
-						machineTimer = 1;
+						machineTimer = 1f;
 						audioHandler.playSound(AudioHandler.Shoot_2);
 						cooldownToShoot = COOLDOWN_Effect;
 					}
@@ -100,13 +114,32 @@ public class Boss extends Sprite{
 				if (machineGun) {
 					double rand =Math.random() * 360 +1;
 					float r = (float) rand;
-					handler.add(new Bullet(atlas, getPosition().x, getPosition().y, r, true, "ZBullet"));
+					handler.add(new Bullet(atlas, getPosition().x, getPosition().y, r, true, "ZBullet", 200));
 					pHandler.addParticleEffect(ParticleType.ZFIRE, getPosition().x, getPosition().y, r+90);
 					machineTimer-= delta;
 					
 					if (machineTimer <= 0) {
 						machineGun = false;
 						timer = 0;
+					}
+				}
+				if (slingerGun) {
+					slingerTimer-=delta;
+					if (slingerTimer <= 0) {
+						if (slingerCounter <= 5) {
+							slingerRotation+= 10;
+						}else{
+							slingerRotation-=10;
+						}
+						handler.add(new Bullet(atlas, getPosition().x, getPosition().y, slingerRotation, true, "ZBullet", 200));
+						pHandler.addParticleEffect(ParticleType.ZFIRE, getPosition().x, getPosition().y, slingerRotation+90);
+						slingerCounter++;
+						if (slingerCounter >= 15) {
+							machineGun = false;
+							timer = 0;
+							slingerCounter = 0;
+							//aslingerTimer = 0;
+						}
 					}
 				}
 				speed = 0;

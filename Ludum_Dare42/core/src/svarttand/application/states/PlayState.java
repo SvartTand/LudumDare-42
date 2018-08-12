@@ -167,13 +167,14 @@ public class PlayState extends State{
 		cam.update();
 		batch.begin();
 		map.render(batch, textureAtlas);
-		bullets.render(batch);
+		
 		enemyHandler.render(batch);
 
 		player.draw(batch);
 		//attackHandler.render(batch, textureAtlas);
 		map.renderPickups(batch);
 		map.renderLeaves(batch, textureAtlas);
+		bullets.render(batch);
 		particleHandler.render(batch, delta);
 		//batch.draw(textureAtlas.findRegion("Player"), 20, 20);
 		

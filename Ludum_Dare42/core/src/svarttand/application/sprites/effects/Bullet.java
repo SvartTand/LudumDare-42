@@ -23,10 +23,12 @@ public class Bullet extends Sprite{
 	private Vector2 direction;
 	private float timer;
 	private boolean enemy;
+	private float speed;
 	
-	public Bullet(TextureAtlas atlas, float f, float g, float rotation, boolean enemy, String path) {
+	public Bullet(TextureAtlas atlas, float f, float g, float rotation, boolean enemy, String path, float speed) {
 		super(atlas.findRegion(path));
 		timer = 0;
+		this.speed = speed;
 		bounds = new Rectangle(f, g, SIZE,SIZE);
 		setPosition(f- getRegionHeight()*0.5f, g-getRegionHeight()*0.5f);
 		System.out.println(f + ", " + g);
@@ -42,8 +44,8 @@ public class Bullet extends Sprite{
 		checkBounds(handler, bhandler, player, particles);
 		timer += delta;
 		//System.out.println(direaaaction.x + ", " + direction.y);
-		float speedx = direction.x * delta * SPEED;
-		float speedy = direction.y * delta * SPEED;
+		float speedx = direction.x * delta * speed;
+		float speedy = direction.y * delta * speed;
 		//System.out.println(speedx + ", " + speedy);
 		setPosition(getX() + speedx, getY() + speedy);
 		

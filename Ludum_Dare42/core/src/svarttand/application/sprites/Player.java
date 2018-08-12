@@ -61,7 +61,7 @@ public class Player extends Sprite{
 	public Player(float f, float g, TextureAtlas atlas, PlayState state) {
 		super(atlas.findRegion("Walking"));
 		rotationV = new Vector2();
-		bounds = new Rectangle(f, g, 20, 20);
+		bounds = new Rectangle(f, g, 16, 16);
 		this.state = state;
 		speedUp = 0;
 		speedSide = 0;
@@ -99,7 +99,7 @@ public class Player extends Sprite{
 			if (cooldownToShoot <= 0) {
 				if (secondaryFire) {
 					if (secTimer <= 0) {
-						handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), false, "Bullet"));
+						handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), false, "Bullet", 300));
 						screenShake.shake(250, 250, 250);
 						ammo--;
 						pHandler.addParticleEffect(ParticleType.FIRE, getPosition().x, getPosition().y, getRotation()+90);
@@ -115,7 +115,7 @@ public class Player extends Sprite{
 					
 					secTimer -= delta;
 				}else{
-					handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), false, "Bullet"));
+					handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), false, "Bullet", 400));
 					screenShake.shake(250, 250, 250);
 					ammo--;
 					pHandler.addParticleEffect(ParticleType.FIRE, getPosition().x, getPosition().y, getRotation()+90);
@@ -136,7 +136,7 @@ public class Player extends Sprite{
 		setPosition(getX() + speedSide* delta, getY() + speedUp *delta);
 		
 		
-		bounds.setPosition(getX(), getY());
+		bounds.setPosition(getPosition().x-8, getPosition().y-8);
 		setRegion(getFrame(delta));
 		speedSide = 0;
 		speedUp = 0;
