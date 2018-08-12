@@ -169,7 +169,10 @@ public class Player extends Sprite{
 		ammo += add;
 	}
 	public void addHP(int add){
-		hp += add;
+		if (hp != 9) {
+			hp += add;
+		}
+		
 	}
 	
 	public int getHP(){

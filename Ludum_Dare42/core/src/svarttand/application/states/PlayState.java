@@ -116,7 +116,7 @@ public class PlayState extends State{
 		cam.position.x = player.getX();
 		cam.position.y = player.getY();
 		bullets.update(delta, enemyHandler, player, particleHandler);
-		map.update(delta, player, audioHandler);
+		map.update(delta, player, audioHandler, this);
 		//System.out.println(cam.position.x + ", " + cam.position.y);
 		if (cam.position.y < 400) {
 			cam.position.y = 400;
@@ -212,7 +212,15 @@ public class PlayState extends State{
 	public void dmg() {
 		Gdx.graphics.setWindowedMode(Gdx.graphics.getWidth() -100, Gdx.graphics.getHeight() -100);
 		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		ui.resize(Gdx.graphics.getWidth());
 		//screenShake.shake(100, 1000, 1000);
+		
+	}
+	
+	public void heal(){
+		Gdx.graphics.setWindowedMode(Gdx.graphics.getWidth()+ 100, Gdx.graphics.getHeight()+ 100);
+		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		ui.resize(Gdx.graphics.getWidth());
 		
 	}
 	

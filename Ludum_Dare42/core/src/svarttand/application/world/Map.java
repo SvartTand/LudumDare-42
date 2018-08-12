@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import svarttand.application.misc.AudioHandler;
 import svarttand.application.sprites.Player;
+import svarttand.application.states.PlayState;
 
 public class Map {
 	
@@ -76,12 +77,20 @@ public class Map {
 		}
 		
 	}
-	public void update(float delta, Player player, AudioHandler audioHandler){
+	public void update(float delta, Player player, AudioHandler audioHandler, PlayState state){
 		for (int i = 0; i < pickups.size(); i++) {
 			pickups.get(i).update(delta);
 			if (pickups.get(i).getBoundingRectangle().overlaps(player.getBounds())) {
+				if (pickups.get(i).getHp() > 0) {
+					if (player.getHP() >= 9) {
+						//audioHandler.playSound(AudioHandler.EXPLOSION);
+						break;
+					}
+					player.addHP(pickups.get(i).getHp());
+					state.heal();
+				}
 				player.addAmmo(pickups.get(i).getAmmo());
-				player.addHP(pickups.get(i).getHp());
+				
 				
 				System.out.println(player.getAmmo() + ", " + player.getHP());
 				pickups.remove(i);

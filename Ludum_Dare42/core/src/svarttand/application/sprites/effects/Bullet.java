@@ -53,6 +53,7 @@ public class Bullet extends Sprite{
 		if (enemy) {
 			if (bounds.overlaps(player.getBounds())) {
 				player.takeDmg(DMG);
+				//player.addHP(-1);
 				particles.addParticleEffect(ParticleType.HIT, getX(), getY(),45);
 				bHandler.remove(this);
 			}
