@@ -18,11 +18,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
 import svarttand.application.Application;
 import svarttand.application.input.InputController;
+import svarttand.application.input.PlayUI;
+import svarttand.application.misc.AudioHandler;
 import svarttand.application.misc.ParticleHandler;
 import svarttand.application.misc.ParticleType;
 import svarttand.application.misc.ScreenShake;
@@ -50,6 +51,9 @@ public class PlayState extends State{
 	private World world;
 	private RayHandler rayHandler;
 	private PointLight light;
+	
+	private PlayUI ui;
+	private AudioHandler audioHandler;
 //	private BitmapFont font;
 //	private Label label;
 	//private LabelStyle style;
@@ -60,17 +64,19 @@ public class PlayState extends State{
 		viewport = new FitViewport(Application.V_WIDTH, Application.V_HEIGHT, cam);
 		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		
+		audioHandler = new AudioHandler(gsm.assetManager);
+		
 		controller = new InputController(this);
 		map = new Map(textureAtlas);
 		player = new Player(map.getWorldSize()*0.5f, map.getWorldSize()*0.5f, textureAtlas, this);
 		Gdx.input.setInputProcessor(controller);
 		bullets = new BulletHandler(this);
-		enemyHandler = new EnemyHandler();
+		enemyHandler = new EnemyHandler(this);
 		attackHandler = new AttackHandler();
 		screenShake = new ScreenShake();
 		particleHandler = new ParticleHandler(textureAtlas);
 		particleHandler.addParticleEffect(ParticleType.HIT, -100, -100, 0);
-		
+		ui = new PlayUI(textureAtlas, this);
 //		world = new World(new Vector2(Application.V_WIDTH,Application.V_HEIGHT),false);
 //		rayHandler = new RayHandler(world);
 //		rayHandler.setCombinedMatrix(cam.combined);
@@ -85,6 +91,7 @@ public class PlayState extends State{
 	protected void handleInput(float delta) {
 		if (Gdx.input.isKeyPressed(Keys.W)) {
 			player.setSpeedUp(Player.MAX_SPEED);
+			
 		}
 		if (Gdx.input.isKeyPressed(Keys.S)) {
 			player.setSpeedUp(-Player.MAX_SPEED);
@@ -104,12 +111,12 @@ public class PlayState extends State{
 		
 		enemyHandler.update(delta, textureAtlas, player.getPosition(), bullets, map.getWorldSize(), particleHandler);
 		handleInput(delta);
-		player.update(delta, controller.getMouse(), textureAtlas, bullets, screenShake, particleHandler);
+		player.update(delta, controller.getMouse(), textureAtlas, bullets, screenShake, particleHandler, audioHandler);
 		
 		cam.position.x = player.getX();
 		cam.position.y = player.getY();
 		bullets.update(delta, enemyHandler, player, particleHandler);
-		map.update(delta, player);
+		map.update(delta, player, audioHandler);
 		//System.out.println(cam.position.x + ", " + cam.position.y);
 		if (cam.position.y < 400) {
 			cam.position.y = 400;
@@ -123,6 +130,8 @@ public class PlayState extends State{
 		if (cam.position.x > 2800) {
 			cam.position.x = 2800;
 		}
+		
+		ui.update(delta, enemyHandler.getKills());
 		//attackHandler.update(delta);
 		//light.setPosition(player.getPosition().x, player.getPosition().y);
 	}
@@ -148,6 +157,7 @@ public class PlayState extends State{
 		//batch.draw(textureAtlas.findRegion("Player"), 20, 20);
 		
 		batch.end();
+		ui.getStage().draw();
 		//rayHandler.updateAndRender();
 		
 	}
@@ -155,7 +165,8 @@ public class PlayState extends State{
 	@Override
 	public void dispose() {
 		particleHandler.dispose();
-		
+		audioHandler.dispose();
+		ui.getStage().dispose();
 	}
 
 	@Override
@@ -203,6 +214,10 @@ public class PlayState extends State{
 		resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		//screenShake.shake(100, 1000, 1000);
 		
+	}
+	
+	public AudioHandler getAudioHandler(){
+		return audioHandler;
 	}
 
 }

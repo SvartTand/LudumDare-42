@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import svarttand.application.Application;
+import svarttand.application.misc.AudioHandler;
 import svarttand.application.misc.ParticleHandler;
 import svarttand.application.misc.ParticleType;
 import svarttand.application.sprites.Player.State;
@@ -67,7 +68,7 @@ public class Zombie extends Sprite{
 		shootingB = false;
 	}
 	
-	public void update(float delta, Vector2 playerPos, BulletHandler handler, TextureAtlas atlas, ParticleHandler pHandler){
+	public void update(float delta, Vector2 playerPos, BulletHandler handler, TextureAtlas atlas, ParticleHandler pHandler, AudioHandler audioHandler){
 		timer += delta;
 		
 		updateRotation(playerPos);
@@ -83,6 +84,7 @@ public class Zombie extends Sprite{
 					timer = 0;
 					shootingB = false;
 					cooldownToShoot = COOLDOWN_Effect;
+					audioHandler.playSound(AudioHandler.Shoot_2);
 				}
 				speed = 0;
 				cooldownToShoot -= delta;
@@ -153,10 +155,6 @@ public class Zombie extends Sprite{
 		isPressed = b;
 	}
 	
-	
-	public void dispose() {
-		dispose();
-	}
 
 	public void updateRotation(Vector2 playerPos) {
 		float rotation = 0;

@@ -12,7 +12,7 @@ import svarttand.application.Application;
 
 
 public class LoadingState extends State{
-	public static final int AUDIO_AMOUNT = 10;
+	public static final int AUDIO_AMOUNT = 5;
 	public static final String ATLAS_PATH = "ThePack.pack";
  	private Viewport viewport;
     private boolean loaded;
@@ -22,7 +22,7 @@ public class LoadingState extends State{
         super(gsm);
         viewport = new StretchViewport(Application.V_WIDTH, Application.V_HEIGHT, cam);
         loaded = false;
-        //makeAudioPaths();
+        makeAudioPaths();
     }
     
     private void makeAudioPaths(){
@@ -30,8 +30,8 @@ public class LoadingState extends State{
     	audioPaths = new String[AUDIO_AMOUNT];
         for (int i = 0; i < AUDIO_AMOUNT; i++) {
         	if (true) {
-				audioPaths[i] = "audio/"+ i + ".wav";
-				System.out.println("audio/"+ i + ".wav");
+				audioPaths[i] = "Audio/"+ i + ".wav";
+				System.out.println("Audio/"+ i + ".wav");
 			}
             
         }
@@ -40,9 +40,9 @@ public class LoadingState extends State{
     
 
     private void load(){
-//        for (int i = 0; i < audioPaths.length; i++) {
-//        	gsm.assetManager.load(audioPaths[i], Sound.class);
-//        }
+        for (int i = 0; i < audioPaths.length; i++) {
+        	gsm.assetManager.load(audioPaths[i], Sound.class);
+        }
         gsm.assetManager.load(ATLAS_PATH, TextureAtlas.class);
         loaded = true;
     }

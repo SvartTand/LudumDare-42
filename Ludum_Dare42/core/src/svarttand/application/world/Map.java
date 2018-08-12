@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
+import svarttand.application.misc.AudioHandler;
 import svarttand.application.sprites.Player;
 
 public class Map {
@@ -75,7 +76,7 @@ public class Map {
 		}
 		
 	}
-	public void update(float delta, Player player){
+	public void update(float delta, Player player, AudioHandler audioHandler){
 		for (int i = 0; i < pickups.size(); i++) {
 			pickups.get(i).update(delta);
 			if (pickups.get(i).getBoundingRectangle().overlaps(player.getBounds())) {
@@ -85,6 +86,7 @@ public class Map {
 				System.out.println(player.getAmmo() + ", " + player.getHP());
 				pickups.remove(i);
 				
+				audioHandler.playSound(AudioHandler.PICKUO);
 			}
 		}
 	}

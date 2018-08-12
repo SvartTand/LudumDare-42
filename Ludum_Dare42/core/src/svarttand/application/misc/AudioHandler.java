@@ -9,6 +9,11 @@ import svarttand.application.states.LoadingState;
 
 public class AudioHandler {
 	
+	public static final int Explosion = 0;
+	public static final int PICKUO = 1;
+	public static final int EXPLOSION = 2;
+	public static final int SHOOT_1 = 3;
+	public static final int Shoot_2 = 4;
 
 	
 	private ArrayList<Sound> audioList;
@@ -16,7 +21,7 @@ public class AudioHandler {
 	public AudioHandler(AssetManager assetManager){
 		audioList = new ArrayList<Sound>();
 		for (int i = 0; i < LoadingState.AUDIO_AMOUNT; i++) {
-			audioList.add(assetManager.get("audio/"+ i + ".wav",Sound.class));
+			audioList.add(assetManager.get("Audio/"+ i + ".wav",Sound.class));
 		}
 	}
 	

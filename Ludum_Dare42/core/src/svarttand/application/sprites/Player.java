@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import svarttand.application.Application;
+import svarttand.application.misc.AudioHandler;
 import svarttand.application.misc.ParticleHandler;
 import svarttand.application.misc.ParticleType;
 import svarttand.application.misc.ScreenShake;
@@ -74,7 +75,7 @@ public class Player extends Sprite{
 		hp = 9;
 	}
 	
-	public void update(float delta, Vector2 mouse, TextureAtlas atlas, BulletHandler handler, ScreenShake screenShake, ParticleHandler pHandler){
+	public void update(float delta, Vector2 mouse, TextureAtlas atlas, BulletHandler handler, ScreenShake screenShake, ParticleHandler pHandler, AudioHandler audio){
 		updateRotation(mouse);
 //		if (isPressed) {
 //			if (speed != MAX_SPEED) {
@@ -95,6 +96,7 @@ public class Player extends Sprite{
 				ammo--;
 				pHandler.addParticleEffect(ParticleType.FIRE, getPosition().x, getPosition().y, getRotation()+90);
 				shootingB = false;
+				audio.playSound(AudioHandler.SHOOT_1);
 			}
 			speedUp = 0;
 			speedSide = 0;
