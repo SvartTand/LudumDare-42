@@ -49,7 +49,7 @@ public class MenuState extends State {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		//batch.draw(textureAtlas.findRegion("Background"), 0, 0, Application.V_WIDTH, Application.V_HEIGHT);
+		batch.draw(textureAtlas.findRegion("Background"), 0, 0, Application.V_WIDTH, Application.V_HEIGHT);
 		//batch.draw(textureAtlas.findRegion("Title"), Application.V_WIDTH*0.2f, Application.V_HEIGHT*0.7f);
 		batch.end();
 		ui.getStage().draw();

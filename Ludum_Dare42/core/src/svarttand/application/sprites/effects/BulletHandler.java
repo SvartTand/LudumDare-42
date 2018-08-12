@@ -42,7 +42,9 @@ public class BulletHandler {
 	}
 
 	public void remove(Bullet bullet) {
+		state.addLight(bullet.getPosition());
 		bullets.remove(bullet);
+		
 		state.shake();
 	}
 

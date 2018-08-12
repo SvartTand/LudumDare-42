@@ -3,422 +3,429 @@ ThePack.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+Background
+  rotate: false
+  xy: 1, 111
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
 Boss
   rotate: false
-  xy: 1, 63
+  xy: 1, 45
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 1
 Boss
   rotate: false
-  xy: 67, 63
+  xy: 403, 447
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 2
 Boss
   rotate: false
-  xy: 133, 63
+  xy: 67, 45
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 3
 Boss
   rotate: false
-  xy: 199, 63
+  xy: 403, 381
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 4
 Boss
   rotate: false
-  xy: 265, 63
+  xy: 133, 45
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: 5
 Button
   rotate: false
-  xy: 1, 29
+  xy: 1, 11
   size: 64, 32
   orig: 64, 32
   offset: 0, 0
   index: -1
 ButtonPressed
   rotate: false
-  xy: 331, 95
+  xy: 403, 347
   size: 64, 32
   orig: 64, 32
   offset: 0, 0
   index: -1
 BigBullet
   rotate: false
-  xy: 67, 29
+  xy: 469, 479
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 DirtGrassTile
   rotate: false
-  xy: 397, 95
+  xy: 199, 77
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 DirtTile
   rotate: false
-  xy: 101, 29
+  xy: 67, 11
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 GrassTile
   rotate: false
-  xy: 431, 95
+  xy: 403, 313
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 LeavesTile
   rotate: false
-  xy: 135, 29
+  xy: 469, 445
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 LeavesTile2
   rotate: false
-  xy: 465, 95
+  xy: 233, 77
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 Player
   rotate: false
-  xy: 169, 29
+  xy: 101, 11
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 Shooting
   rotate: false
-  xy: 499, 95
+  xy: 403, 279
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 0
 Walking
   rotate: false
-  xy: 499, 95
+  xy: 403, 279
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 0
 Walking
   rotate: false
-  xy: 499, 95
+  xy: 403, 279
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 4
 Shooting
   rotate: false
-  xy: 203, 29
+  xy: 469, 411
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 Shooting
   rotate: false
-  xy: 203, 29
+  xy: 469, 411
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 9
 Shooting
   rotate: false
-  xy: 533, 95
+  xy: 267, 77
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 Shooting
   rotate: false
-  xy: 533, 95
+  xy: 267, 77
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 8
 Shooting
   rotate: false
-  xy: 237, 29
+  xy: 135, 11
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 3
 Shooting
   rotate: false
-  xy: 237, 29
+  xy: 135, 11
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 7
 Shooting
   rotate: false
-  xy: 567, 95
+  xy: 403, 245
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 4
 Shooting
   rotate: false
-  xy: 271, 29
+  xy: 469, 377
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 5
 Shooting
   rotate: false
-  xy: 601, 95
+  xy: 301, 77
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 6
 TreeTile
   rotate: false
-  xy: 635, 95
+  xy: 403, 211
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 Walking
   rotate: false
-  xy: 669, 95
+  xy: 335, 77
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 Walking
   rotate: false
-  xy: 703, 95
+  xy: 403, 177
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 Walking
   rotate: false
-  xy: 737, 95
+  xy: 369, 77
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 3
 Walking
   rotate: false
-  xy: 771, 95
+  xy: 403, 143
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 5
 Walking
   rotate: false
-  xy: 805, 95
+  xy: 403, 109
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 6
 Walking
   rotate: false
-  xy: 839, 95
+  xy: 199, 43
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 7
 ZShooting
   rotate: false
-  xy: 873, 95
+  xy: 233, 43
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 ZWalking
   rotate: false
-  xy: 873, 95
+  xy: 233, 43
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 1
 ZWalking
   rotate: false
-  xy: 873, 95
+  xy: 233, 43
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 5
 ZShooting
   rotate: false
-  xy: 907, 95
+  xy: 267, 43
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 ZShooting
   rotate: false
-  xy: 907, 95
+  xy: 267, 43
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 8
 ZShooting
   rotate: false
-  xy: 941, 95
+  xy: 301, 43
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 3
 ZShooting
   rotate: false
-  xy: 941, 95
+  xy: 301, 43
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 7
 ZShooting
   rotate: false
-  xy: 975, 95
+  xy: 335, 43
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 4
 ZShooting
   rotate: false
-  xy: 331, 61
+  xy: 369, 43
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 5
 ZShooting
   rotate: false
-  xy: 365, 61
+  xy: 403, 75
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 6
 ZWalking
   rotate: false
-  xy: 399, 61
+  xy: 437, 313
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 2
 ZWalking
   rotate: false
-  xy: 433, 61
+  xy: 437, 279
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 3
 ZWalking
   rotate: false
-  xy: 467, 61
+  xy: 437, 245
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 4
 ZWalking
   rotate: false
-  xy: 501, 61
+  xy: 437, 211
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 6
 ZWalking
   rotate: false
-  xy: 535, 61
+  xy: 437, 177
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 7
 ZWalking
   rotate: false
-  xy: 569, 61
+  xy: 437, 143
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: 8
 Ammo
   rotate: false
-  xy: 1, 7
+  xy: 169, 23
   size: 20, 20
   orig: 20, 20
   offset: 0, 0
   index: -1
 Pickup
   rotate: false
-  xy: 305, 41
+  xy: 169, 1
   size: 20, 20
   orig: 20, 20
   offset: 0, 0
   index: -1
 Attack
   rotate: false
-  xy: 603, 75
+  xy: 403, 55
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 0
 Attack
   rotate: false
-  xy: 23, 9
+  xy: 469, 357
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 1
 Attack
   rotate: false
-  xy: 623, 75
+  xy: 437, 123
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 2
 Attack
   rotate: false
-  xy: 43, 9
+  xy: 437, 103
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 3
 Bullet
   rotate: false
-  xy: 1009, 117
+  xy: 403, 43
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
   index: -1
 ZBullet
   rotate: false
-  xy: 305, 29
+  xy: 423, 63
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
   index: -1
 HPparticle
   rotate: false
-  xy: 23, 1
+  xy: 191, 37
   size: 6, 6
   orig: 6, 6
   offset: 0, 0
   index: -1
 Parti
   rotate: false
-  xy: 1021, 125
+  xy: 503, 509
   size: 2, 2
   orig: 2, 2
   offset: 0, 0
   index: -1
 particle
   rotate: false
-  xy: 327, 60
+  xy: 1, 8
   size: 1, 1
   orig: 1, 1
   offset: 0, 0

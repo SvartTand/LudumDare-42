@@ -21,7 +21,7 @@ import svarttand.application.states.PlayState;
 public class PlayUI {
 	
 	
-	
+	private static final float TIMER = 2;
 	private static final float RECT_WIDTH = 400;
 	private static final float RECT_HEIGHT = 40;
 	Stage stage;
@@ -37,6 +37,9 @@ public class PlayUI {
 	private Label hpLabel;
 	private Label bossLabel;
 	
+	private Label outOfAmmo;
+	private float outOfAmmoTimer;
+	
 	
 	public PlayUI(TextureAtlas atlas, final PlayState state){
 		camera = new OrthographicCamera();
@@ -47,7 +50,7 @@ public class PlayUI {
 		font = new BitmapFont();
 		labelStyle = new LabelStyle(font, Color.WHITE);
 		kilLabel = new Label("Kill Count: 0/" + EnemyHandler.GOAL, labelStyle);
-		kilLabel.setPosition(Application.V_WIDTH*0.5f, Application.V_HEIGHT *0.9f);
+		kilLabel.setPosition(Application.V_WIDTH*0.5f- kilLabel.getWidth()*0.5f, Application.V_HEIGHT *0.9f);
 		stage.addActor(kilLabel);
 		
 		ammoLabel = new Label("Ammo: 10", labelStyle);
@@ -60,6 +63,11 @@ public class PlayUI {
 		
 		bossLabel = new Label("Boss Hp:", labelStyle);
 		bossLabel.setPosition(Application.V_WIDTH*0.55f, Application.V_HEIGHT *0.05f);
+		
+		outOfAmmo = new Label("OUT OF AMMO!", new LabelStyle(font, Color.RED));
+		outOfAmmo.setPosition(Application.V_WIDTH*0.5f - outOfAmmo.getHeight()*0.5f, Application.V_HEIGHT *0.5f);
+		stage.addActor(outOfAmmo);
+		outOfAmmo.setVisible(false);
 	}
 	
 	public Stage getStage(){
@@ -91,6 +99,14 @@ public class PlayUI {
 		kilLabel.setText("Kill Count: " + kills +"/"+ EnemyHandler.GOAL);
 		ammoLabel.setText("Ammo: " + state.getPlayer().getAmmo());
 		hpLabel.setText("Hp: " + state.getPlayer().getHP() + "/" + Player.MAXHP);
+		
+		if (state.getPlayer().getAmmo() <= 0) {
+			ammoLabel.setColor(Color.RED);
+			outOfAmmoTimer = TIMER;
+			outOfAmmo.setVisible(true);
+		}else{
+			ammoLabel.setColor(Color.WHITE);
+		}
 	}
 	
 	public void resize(float scale){

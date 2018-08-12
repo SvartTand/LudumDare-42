@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter.ScaledNumericValue;
 import com.badlogic.gdx.utils.Array;
 
+import box2dLight.PointLight;
+
 public class ParticleHandler {
 	
 	private static HashMap<ParticleType, ParticleEffectPool> pools;

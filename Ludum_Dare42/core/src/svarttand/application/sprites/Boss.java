@@ -78,7 +78,7 @@ public class Boss extends Sprite{
 		slingerGun = false;
 		slingerCounter = 0;
 		
-		light = new PointLight(rayHandler, 100, Color.MAGENTA, 100, 80, 80);
+		light = new PointLight(rayHandler, 100, Color.MAGENTA, 500, 800, 800);
 	}
 	
 	public void update(float delta, Vector2 playerPos, BulletHandler handler, TextureAtlas atlas, ParticleHandler pHandler, AudioHandler audioHandler, RayHandler rayHandler){
@@ -92,7 +92,7 @@ public class Boss extends Sprite{
 			if (timer >= COOLDOWN) {
 				
 				shootingB = true;
-				if (cooldownToShoot <= 0 && !machineGun) {
+				if (cooldownToShoot <= 0 && !machineGun && !slingerGun) {
 					double rand =Math.random() * 4 +1;
 					rand = (int) rand;
 					System.out.println(rand);
@@ -108,6 +108,7 @@ public class Boss extends Sprite{
 						slingerTimer = 0.1f;
 						slingerCounter = 0;
 						slingerRotation = getRotation();
+						System.out.println("AUDIO!!!");
 						audioHandler.playSound(AudioHandler.MULTI_SHOOT);
 						cooldownToShoot = COOLDOWN_Effect;
 					}else {

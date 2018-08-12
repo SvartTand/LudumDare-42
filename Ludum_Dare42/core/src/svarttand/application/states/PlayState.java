@@ -80,6 +80,7 @@ public class PlayState extends State{
 		music.setLooping(true);
 		music.play();
 		
+		lightHandler = new LightHandler();
 		world = new World(new Vector2(Application.V_WIDTH,Application.V_HEIGHT),false);
 		rayHandler = new RayHandler(world);
 		rayHandler.useDiffuseLight(true);
@@ -169,6 +170,7 @@ public class PlayState extends State{
 		light.setPosition(player.getPosition().x, player.getPosition().y);
 		coneLight.setPosition(player.getPosition());
 		coneLight.setDirection(player.getRotation()+90);
+		lightHandler.update(delta);
 	}
 
 	@Override
@@ -220,6 +222,10 @@ public class PlayState extends State{
 		
 		//viewport.setScreenSize(width, height);
 		
+	}
+	
+	public void addLight(Vector2 pos){
+		lightHandler.addLight(pos, rayHandler);
 	}
 	
 	public ParticleHandler getParticleHandler(){

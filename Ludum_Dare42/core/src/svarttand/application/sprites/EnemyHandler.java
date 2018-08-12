@@ -15,7 +15,7 @@ import svarttand.application.states.PlayState;
 
 public class EnemyHandler {
 	
-	public static final int GOAL = 10;
+	public static final int GOAL = 0;
 	private ArrayList<Zombie> enemies;
 	private float timer;
 	
