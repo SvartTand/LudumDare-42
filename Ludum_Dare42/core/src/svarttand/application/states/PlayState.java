@@ -61,7 +61,7 @@ public class PlayState extends State{
 		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		
 		controller = new InputController(this);
-		map = new Map();
+		map = new Map(textureAtlas);
 		player = new Player(map.getWorldSize()*0.5f, map.getWorldSize()*0.5f, textureAtlas, this);
 		Gdx.input.setInputProcessor(controller);
 		bullets = new BulletHandler(this);
@@ -109,8 +109,8 @@ public class PlayState extends State{
 		cam.position.x = player.getX();
 		cam.position.y = player.getY();
 		bullets.update(delta, enemyHandler, player, particleHandler);
-		
-		System.out.println(cam.position.x + ", " + cam.position.y);
+		map.update(delta, player);
+		//System.out.println(cam.position.x + ", " + cam.position.y);
 		if (cam.position.y < 400) {
 			cam.position.y = 400;
 		}
@@ -141,8 +141,8 @@ public class PlayState extends State{
 		enemyHandler.render(batch);
 
 		player.draw(batch);
-		attackHandler.render(batch, textureAtlas);
-		
+		//attackHandler.render(batch, textureAtlas);
+		map.renderPickups(batch);
 		map.renderLeaves(batch, textureAtlas);
 		particleHandler.render(batch, delta);
 		//batch.draw(textureAtlas.findRegion("Player"), 20, 20);

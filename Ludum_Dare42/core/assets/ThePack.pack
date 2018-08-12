@@ -283,44 +283,58 @@ ZWalking
   orig: 32, 32
   offset: 0, 0
   index: 8
-Attack
+Ammo
   rotate: false
-  xy: 1, 7
-  size: 18, 18
-  orig: 18, 18
+  xy: 1, 5
+  size: 20, 20
+  orig: 20, 20
   offset: 0, 0
-  index: 0
-Attack
+  index: -1
+Pickup
   rotate: false
-  xy: 341, 75
-  size: 18, 18
-  orig: 18, 18
+  xy: 341, 73
+  size: 20, 20
+  orig: 20, 20
   offset: 0, 0
-  index: 1
+  index: -1
 Attack
   rotate: false
   xy: 375, 109
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
+  index: 0
+Attack
+  rotate: false
+  xy: 23, 7
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: 1
+Attack
+  rotate: false
+  xy: 341, 53
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
   index: 2
 Attack
   rotate: false
-  xy: 21, 7
+  xy: 395, 109
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: 3
 Bullet
   rotate: false
-  xy: 341, 63
+  xy: 363, 83
   size: 10, 10
   orig: 10, 10
   offset: 0, 0
   index: -1
 particle
   rotate: false
-  xy: 1, 1
+  xy: 23, 1
   size: 4, 4
   orig: 4, 4
   offset: 0, 0

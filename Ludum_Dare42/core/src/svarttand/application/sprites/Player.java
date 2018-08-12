@@ -96,7 +96,6 @@ public class Player extends Sprite{
 //		float y = (float) MathUtils.sinDeg(getRotation()+90) *speed;
 		//System.out.println((float) MathUtils.cos(getRotation()+90) + ", " + (float) MathUtils.sin(getRotation()+90));
 		setPosition(getX() + speedSide* delta, getY() + speedUp *delta);
-
 		
 		
 		bounds.setPosition(getX(), getY());

@@ -5,24 +5,38 @@ import java.util.ArrayList;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
+import svarttand.application.sprites.Player;
+
 public class Map {
 	
 	private static final int SIZE = 100;
 	private static final int TILE_SIZE = 32;
+	
+	private static final int NUMBER_OF_PICKUPS = 10;
 	private Tile[][] map;
 	private Tile[][] leavesMap;
 	
 	private ArrayList<Tile> obstacles;
+	private ArrayList<Pickup> pickups;
 	
-	public Map() {
+	public Map(TextureAtlas atlas) {
 		map = new Tile[SIZE][SIZE];
 		leavesMap = new Tile[SIZE][SIZE];
-		generateMap();
+		pickups = new ArrayList<Pickup>();
+		generateMap(atlas);
 	}
 
-	private void generateMap() {
+	private void generateMap(TextureAtlas atlas) {
+		int pickup = NUMBER_OF_PICKUPS;
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
+				double randP =Math.random() * 1000 +1;
+				randP = (int) randP;
+				if (randP == 50) {
+					pickups.add(new Pickup(atlas, i*TILE_SIZE + TILE_SIZE*0.5f, j*TILE_SIZE + TILE_SIZE*0.5f, "Pickup"));
+					pickup--;
+				}
+				
 				double rand =Math.random() * 100 +1;
 				rand = (int) rand;
 				if (rand == 5) {
@@ -59,6 +73,16 @@ public class Map {
 		}
 		
 	}
+	public void update(float delta, Player player){
+		for (int i = 0; i < pickups.size(); i++) {
+			pickups.get(i).update(delta);
+			if (pickups.get(i).getBoundingRectangle().overlaps(player.getBounds())) {
+				pickups.remove(i);
+				System.out.println("PICKUP!");
+			}
+		}
+	}
+	
 	
 	public void render(SpriteBatch batch, TextureAtlas atlas){
 		for (int i = 0; i < map.length; i++) {
@@ -68,6 +92,12 @@ public class Map {
 			}
 		}
 		
+	}
+	
+	public void renderPickups(SpriteBatch batch){
+		for (int i = 0; i < pickups.size(); i++) {
+			pickups.get(i).draw(batch);
+		}
 	}
 	
 	public void renderLeaves(SpriteBatch batch, TextureAtlas atlas){
