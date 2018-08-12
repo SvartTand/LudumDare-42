@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import svarttand.application.Application;
-import svarttand.application.sprites.Player;
 import svarttand.application.states.PlayState;
 
 public class InputController implements InputProcessor{

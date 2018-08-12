@@ -31,7 +31,6 @@ public class MenuState extends State {
 
 	@Override
 	protected void handleInput(float delta) {
-		// TODO Auto-generated method stub
 
 	}
 

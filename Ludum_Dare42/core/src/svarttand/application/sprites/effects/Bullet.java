@@ -1,14 +1,11 @@
 package svarttand.application.sprites.effects;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
 import svarttand.application.misc.ParticleHandler;
@@ -18,7 +15,6 @@ import svarttand.application.sprites.Player;
 
 public class Bullet extends Sprite{
 	
-	private static final int SPEED = 300;
 	private static final int SIZE = 3;
 	private static final float DMG = 10;
 	
@@ -42,7 +38,6 @@ public class Bullet extends Sprite{
 		this.enemy = enemy;
 		direction = new Vector2(MathUtils.cosDeg(rotation), MathUtils.sinDeg(rotation));
 		light = new PointLight(rayHandler, 100, Color.RED, 50, 1,1);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void update(float delta, EnemyHandler handler, BulletHandler bhandler, Player player, ParticleHandler particles){
@@ -92,7 +87,6 @@ public class Bullet extends Sprite{
 	}
 	
 	public Vector2 getPosition() {
-		// TODO Auto-generated method stub
 		return new Vector2(getX()+getRegionWidth()*0.5f, getY()+getRegionHeight()*0.5f);
 	}
 

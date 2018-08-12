@@ -9,14 +9,11 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
-import svarttand.application.Application;
 import svarttand.application.misc.AudioHandler;
 import svarttand.application.misc.ParticleHandler;
 import svarttand.application.misc.ParticleType;
-import svarttand.application.sprites.Player.State;
 import svarttand.application.sprites.effects.Bullet;
 import svarttand.application.sprites.effects.BulletHandler;
 
@@ -31,7 +28,6 @@ public class Zombie extends Sprite{
 
 	private Vector2 rotationV;
 	private float speed;
-	private boolean isPressed;
 	private Rectangle bounds;
 	private float hp;
 	private float timer;
@@ -159,9 +155,6 @@ public class Zombie extends Sprite{
 		return false;
 	}
 
-	public void setPressed(boolean b){
-		isPressed = b;
-	}
 	
 
 	public void updateRotation(Vector2 playerPos) {
@@ -175,7 +168,6 @@ public class Zombie extends Sprite{
 	}
 
 	public Rectangle getBounds() {
-		// TODO Auto-generated method stub
 		return bounds;
 	}
 
@@ -189,7 +181,6 @@ public class Zombie extends Sprite{
 	}
 	
 	public Vector2 getPosition() {
-		// TODO Auto-generated method stub
 		return new Vector2(getX()+getRegionWidth()*0.5f, getY()+getRegionHeight()*0.5f);
 	}
 

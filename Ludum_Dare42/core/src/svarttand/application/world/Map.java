@@ -16,11 +16,10 @@ public class Map {
 	private static final int SIZE = 100;
 	private static final int TILE_SIZE = 32;
 	
-	private static final int NUMBER_OF_PICKUPS = 10;
+
 	private Tile[][] map;
 	private Tile[][] leavesMap;
 	
-	private ArrayList<Tile> obstacles;
 	private ArrayList<Pickup> pickups;
 	
 	public Map(TextureAtlas atlas, RayHandler rayHandler) {
@@ -31,7 +30,6 @@ public class Map {
 	}
 
 	private void generateMap(TextureAtlas atlas, RayHandler rayHandler) {
-		int pickup = NUMBER_OF_PICKUPS;
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 				double randP =Math.random() * 1000 +1;
@@ -65,7 +63,6 @@ public class Map {
 									}
 									
 								} catch (Exception e) {
-									// TODO: handle exception
 								}
 							
 							}
@@ -91,7 +88,7 @@ public class Map {
 			pickups.get(i).update(delta);
 			if (pickups.get(i).getBoundingRectangle().overlaps(player.getBounds())) {
 				if (pickups.get(i).getHp() > 0) {
-					if (player.getHP() >= player.MAXHP) {
+					if (player.getHP() >= Player.MAXHP) {
 						//audioHandler.playSound(AudioHandler.EXPLOSION);
 						break;
 					}

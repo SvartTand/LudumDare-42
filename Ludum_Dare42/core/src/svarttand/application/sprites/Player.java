@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-
 import box2dLight.RayHandler;
 import svarttand.application.Application;
 import svarttand.application.misc.AudioHandler;
@@ -24,7 +23,7 @@ import svarttand.application.states.PlayState;
 
 public class Player extends Sprite{
 	public static final float MAX_SPEED = 100f;
-	private static final float ACCELERATION = 10f;
+	//private static final float ACCELERATION = 10f;
 	private static final float COOLDOWN = .6f;
 	
 	public static final int MAXHP = 5;
@@ -46,7 +45,7 @@ public class Player extends Sprite{
 	private Vector2 rotationV;
 	private float speedSide;
 	private float speedUp;
-	private boolean isPressed;
+
 	private Rectangle bounds;
 	private PlayState state;
 	
@@ -175,10 +174,6 @@ public class Player extends Sprite{
 		}
 		return State.STANDING;
 	}
-
-	public void setPressed(boolean b){
-		isPressed = b;
-	}
 	
 	public void setSpeedUp(float s){
 		speedUp = s;
@@ -217,12 +212,10 @@ public class Player extends Sprite{
 	}
 
 	public Vector2 getPosition() {
-		// TODO Auto-generated method stub
 		return new Vector2(getX()+getRegionWidth()*0.5f, getY()+getRegionHeight()*0.5f);
 	}
 
 	public Rectangle getBounds() {
-		// TODO Auto-generated method stub
 		return bounds;
 	}
 

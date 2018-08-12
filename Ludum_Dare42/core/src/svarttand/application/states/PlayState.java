@@ -1,6 +1,5 @@
 package svarttand.application.states;
 
-import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -8,19 +7,13 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
 import box2dLight.ConeLight;
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
@@ -34,8 +27,6 @@ import svarttand.application.misc.ParticleType;
 import svarttand.application.misc.ScreenShake;
 import svarttand.application.sprites.EnemyHandler;
 import svarttand.application.sprites.Player;
-import svarttand.application.sprites.effects.AttackHandler;
-import svarttand.application.sprites.effects.Bullet;
 import svarttand.application.sprites.effects.BulletHandler;
 import svarttand.application.world.Map;
 
@@ -49,7 +40,6 @@ public class PlayState extends State{
 	private Map map;
 	private EnemyHandler enemyHandler;
 	private BulletHandler bullets;
-	private AttackHandler attackHandler;
 	
 	private ScreenShake screenShake;
 	private ParticleHandler particleHandler;
@@ -83,7 +73,7 @@ public class PlayState extends State{
 		lightHandler = new LightHandler();
 		world = new World(new Vector2(Application.V_WIDTH,Application.V_HEIGHT),false);
 		rayHandler = new RayHandler(world);
-		rayHandler.useDiffuseLight(true);
+		RayHandler.useDiffuseLight(true);
 		
 		controller = new InputController(this);
 		map = new Map(textureAtlas, rayHandler);
@@ -91,7 +81,7 @@ public class PlayState extends State{
 		Gdx.input.setInputProcessor(controller);
 		bullets = new BulletHandler(this);
 		enemyHandler = new EnemyHandler(this);
-		attackHandler = new AttackHandler();
+
 		screenShake = new ScreenShake();
 		particleHandler = new ParticleHandler(textureAtlas);
 		
@@ -102,6 +92,7 @@ public class PlayState extends State{
 		particleHandler.addParticleEffect(ParticleType.FIRE, 0, 0, 1);
 		particleHandler.addParticleEffect(ParticleType.ZFIRE, 0, 0, 1);
 		particleHandler.addParticleEffect(ParticleType.PICKUP, 0, 0, 1);
+		particleHandler.addParticleEffect(ParticleType.HP_PICKUP, 0, 0, 1);
 		
 		
 		light = new PointLight(rayHandler,100, Color.YELLOW,100,100,100);
@@ -237,7 +228,6 @@ public class PlayState extends State{
 	}
 
 	public OrthographicCamera getCam() {
-		// TODO Auto-generated method stub
 		return cam;
 	}
 
@@ -303,7 +293,6 @@ public class PlayState extends State{
 	}
 
 	public RayHandler getRayhandler() {
-		// TODO Auto-generated method stub
 		return rayHandler;
 	}
 

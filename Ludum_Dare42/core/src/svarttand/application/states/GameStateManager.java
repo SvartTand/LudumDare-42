@@ -10,7 +10,6 @@ public class GameStateManager {
 	private Stack<State> states;
     public AssetManager assetManager;
     private String text;
-    private int wave;
 
     public GameStateManager(AssetManager manager){
         assetManager = manager;

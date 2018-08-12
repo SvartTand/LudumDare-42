@@ -1,13 +1,10 @@
 package svarttand.application.world;
 
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Tile {
 	
 	private String path;
-	private Rectangle bounds;
-	private boolean passable;
 	
 	private Vector2 position;
 	

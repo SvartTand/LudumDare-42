@@ -1,13 +1,10 @@
 package svarttand.application.sprites;
 
 import java.util.ArrayList;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
-
 import box2dLight.RayHandler;
-import svarttand.application.Application;
 import svarttand.application.misc.AudioHandler;
 import svarttand.application.misc.ParticleHandler;
 import svarttand.application.sprites.effects.BulletHandler;

@@ -177,39 +177,39 @@ public class Boss extends Sprite{
 		light.setPosition(getPosition());
 	}
 	
-	private TextureRegion getFrame(float delta) {
-		currentState = getState();
-		TextureRegion region;
-		switch (currentState) {
-		case SHOOTING:
-			region =  (TextureRegion) shooting.getKeyFrame(stateTimer);
-			break;
-
-		case WALKING:
-			region = (TextureRegion) walking.getKeyFrame(stateTimer, true);
-			break;
-			
-		case STANDING:
-			
-		default:
-			region = stand;
-			break;
-		}
-		
-		stateTimer = currentState == previousState ? stateTimer + delta: 0;
-		previousState = currentState;
-		return region;
-	}
+//	private TextureRegion getFrame(float delta) {
+//		currentState = getState();
+//		TextureRegion region;
+//		switch (currentState) {
+//		case SHOOTING:
+//			region =  (TextureRegion) shooting.getKeyFrame(stateTimer);
+//			break;
+//
+//		case WALKING:
+//			region = (TextureRegion) walking.getKeyFrame(stateTimer, true);
+//			break;
+//			
+//		case STANDING:
+//			
+//		default:
+//			region = stand;
+//			break;
+//		}
+//		
+//		stateTimer = currentState == previousState ? stateTimer + delta: 0;
+//		previousState = currentState;
+//		return region;
+//	}
 	
-	private State getState() {
-		if (shootingB) {
-			return State.SHOOTING;
-		}
-		if (speed != 0) {
-			return State.WALKING;
-		}
-		return State.STANDING;
-	}
+//	private State getState() {
+//		if (shootingB) {
+//			return State.SHOOTING;
+//		}
+//		if (speed != 0) {
+//			return State.WALKING;
+//		}
+//		return State.STANDING;
+//	}
 	
 	private boolean playerIsNear(Vector2 playerPos) {
 		float dist = (float) Math.sqrt(Math.pow(playerPos.x - getX(),2)+ Math.pow(playerPos.y - getY(), 2));
@@ -246,12 +246,10 @@ public class Boss extends Sprite{
 	}
 	
 	public Vector2 getPosition() {
-		// TODO Auto-generated method stub
 		return new Vector2(getX()+getRegionWidth()*0.5f, getY()+getRegionHeight()*0.5f);
 	}
 
 	public float getHp() {
-		// TODO Auto-generated method stub
 		return hp;
 	}
 
