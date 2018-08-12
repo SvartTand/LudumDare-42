@@ -1,6 +1,7 @@
 package svarttand.application.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -44,6 +45,7 @@ public class LoadingState extends State{
         	gsm.assetManager.load(audioPaths[i], Sound.class);
         }
         gsm.assetManager.load(ATLAS_PATH, TextureAtlas.class);
+        gsm.assetManager.load("Audio/Music.mp3", Music.class);
         loaded = true;
     }
 
@@ -60,7 +62,7 @@ public class LoadingState extends State{
         gsm.assetManager.update();
         if (gsm.assetManager.getProgress() >= 1){
         	
-            gsm.set(new PlayState(gsm));
+            gsm.set(new MenuState(gsm));
             dispose();
             
         }

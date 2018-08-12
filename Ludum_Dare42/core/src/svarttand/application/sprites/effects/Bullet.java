@@ -28,7 +28,7 @@ public class Bullet extends Sprite{
 		super(atlas.findRegion(path));
 		timer = 0;
 		bounds = new Rectangle(f, g, SIZE,SIZE);
-		setPosition(f, g);
+		setPosition(f- getRegionHeight()*0.5f, g-getRegionHeight()*0.5f);
 		System.out.println(f + ", " + g);
 		setRotation(rotation);
 		rotation += 90;
@@ -47,7 +47,7 @@ public class Bullet extends Sprite{
 		//System.out.println(speedx + ", " + speedy);
 		setPosition(getX() + speedx, getY() + speedy);
 		
-		bounds.setPosition(getX(), getY());
+		bounds.set(getBoundingRectangle());
 	}
 	private void checkBounds(EnemyHandler handler, BulletHandler bHandler, Player player, ParticleHandler particles ) {
 		if (enemy) {

@@ -6,13 +6,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-
 import svarttand.application.misc.AudioHandler;
 import svarttand.application.misc.ParticleHandler;
 import svarttand.application.misc.ParticleType;
-import svarttand.application.sprites.Zombie.State;
 import svarttand.application.sprites.effects.Bullet;
 import svarttand.application.sprites.effects.BulletHandler;
 
@@ -21,7 +18,7 @@ public class Boss extends Sprite{
 	private static final float MAX_SPEED = 50f;
 	private static final float ACCELERATION = 10f;
 	private static final float DETECTION = 4000;
-	private static final int HP = 200;
+	public static final int HP = 200;
 	private static final float COOLDOWN = 2.5f;
 	private static final float COOLDOWN_Effect = 0.6f;
 
@@ -85,7 +82,7 @@ public class Boss extends Sprite{
 					rand = (int) rand;
 					System.out.println(rand);
 					if (rand == 1) {
-						handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), true, "Bullet"));
+						handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), true, "BigBullet"));
 						pHandler.addParticleEffect(ParticleType.ZFIRE, getPosition().x, getPosition().y, getRotation()+90);
 						timer = 0;
 						shootingB = false;
@@ -95,7 +92,7 @@ public class Boss extends Sprite{
 						
 						machineGun = true;
 						machineTimer = 1;
-						
+						audioHandler.playSound(AudioHandler.Shoot_2);
 						cooldownToShoot = COOLDOWN_Effect;
 					}
 					
@@ -103,9 +100,10 @@ public class Boss extends Sprite{
 				if (machineGun) {
 					double rand =Math.random() * 360 +1;
 					float r = (float) rand;
-					handler.add(new Bullet(atlas, getPosition().x, getPosition().y, r, true, "Bullet"));
+					handler.add(new Bullet(atlas, getPosition().x, getPosition().y, r, true, "ZBullet"));
 					pHandler.addParticleEffect(ParticleType.ZFIRE, getPosition().x, getPosition().y, r+90);
 					machineTimer-= delta;
+					
 					if (machineTimer <= 0) {
 						machineGun = false;
 						timer = 0;
@@ -202,6 +200,11 @@ public class Boss extends Sprite{
 	public Vector2 getPosition() {
 		// TODO Auto-generated method stub
 		return new Vector2(getX()+getRegionWidth()*0.5f, getY()+getRegionHeight()*0.5f);
+	}
+
+	public float getHp() {
+		// TODO Auto-generated method stub
+		return hp;
 	}
 
 

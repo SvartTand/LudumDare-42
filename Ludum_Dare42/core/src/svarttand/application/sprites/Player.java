@@ -26,7 +26,7 @@ public class Player extends Sprite{
 	private static final float ACCELERATION = 10f;
 	private static final float COOLDOWN = .6f;
 	
-	public static final int MAXHP = 6;
+	public static final int MAXHP = 5;
 	
 	public enum State {STANDING, WALKING,SHOOTING};
 	public State currentState;
@@ -207,11 +207,14 @@ public class Player extends Sprite{
 	}
 
 	public void shoot() {
-		if (!shootingB) {
-			currentState = State.SHOOTING;
-			cooldownToShoot = COOLDOWN;
-			shootingB = true;
+		if (ammo > 0) {
+			if (!shootingB) {
+				currentState = State.SHOOTING;
+				cooldownToShoot = COOLDOWN;
+				shootingB = true;
+			}
 		}
+		
 		
 		
 	}

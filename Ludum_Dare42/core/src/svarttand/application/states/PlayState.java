@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -54,17 +56,23 @@ public class PlayState extends State{
 	
 	private PlayUI ui;
 	private AudioHandler audioHandler;
+	private ShapeRenderer renderer;
+	
+	private Music music;
 //	private BitmapFont font;
 //	private Label label;
 	//private LabelStyle style;
 
-	public PlayState(GameStateManager gsm) {
+	public PlayState(GameStateManager gsm, TextureAtlas textureAtlas) {
 		super(gsm);
-		textureAtlas = gsm.assetManager.get("ThePack.pack", TextureAtlas.class);
+		this.textureAtlas= textureAtlas;
 		viewport = new FitViewport(Application.V_WIDTH, Application.V_HEIGHT, cam);
 		viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		
+		renderer = new ShapeRenderer();
 		audioHandler = new AudioHandler(gsm.assetManager);
+		music = gsm.assetManager.get("Audio/Music.mp3", Music.class);
+		music.setLooping(true);
+		music.play();
 		
 		controller = new InputController(this);
 		map = new Map(textureAtlas);
@@ -157,6 +165,7 @@ public class PlayState extends State{
 		//batch.draw(textureAtlas.findRegion("Player"), 20, 20);
 		
 		batch.end();
+		ui.render(renderer, enemyHandler.getBoss(), cam);
 		ui.getStage().draw();
 		//rayHandler.updateAndRender();
 		
@@ -167,6 +176,7 @@ public class PlayState extends State{
 		particleHandler.dispose();
 		audioHandler.dispose();
 		ui.getStage().dispose();
+		music.dispose();
 	}
 
 	@Override
@@ -232,12 +242,24 @@ public class PlayState extends State{
 	}
 	public void defeat(){
 		System.out.println("DEFEAT");
-		Gdx.app.exit();
+		music.stop();
+		gsm.pop();
+		Gdx.graphics.setWindowedMode(Application.V_WIDTH, Application.V_HEIGHT);
+		//Gdx.app.exit();
 	}
 
 	public void victory() {
 		System.out.println("VICTORYs");
-		Gdx.app.exit();
+		gsm.pop();
+		music.stop();
+		Gdx.graphics.setWindowedMode(Application.V_WIDTH, Application.V_HEIGHT);
+		
+		//Gdx.app.exit();
+		
+	}
+
+	public void boss() {
+		ui.addBossLabel();
 		
 	}
 

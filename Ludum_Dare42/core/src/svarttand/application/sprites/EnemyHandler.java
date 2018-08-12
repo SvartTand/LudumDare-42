@@ -14,7 +14,7 @@ import svarttand.application.states.PlayState;
 
 public class EnemyHandler {
 	
-	public static final int GOAL = 0;
+	public static final int GOAL = 1;
 	private ArrayList<Zombie> enemies;
 	private float timer;
 	
@@ -32,7 +32,8 @@ public class EnemyHandler {
 	public void update(float delta, TextureAtlas atlas, Vector2 playerPos, BulletHandler handler, float worldSize, ParticleHandler pHandler){
 		timer += delta;
 		if (killCount >= GOAL && boss == null) {
-			boss = new Boss(atlas, playerPos.x, playerPos.y);
+			boss = new Boss(atlas, playerPos.x, playerPos.y + 200);
+			state.boss();
 			System.out.println("BOSS");
 		}
 		if (timer >= 1 && boss == null) {
@@ -82,11 +83,10 @@ public class EnemyHandler {
 	}
 
 	public void dmgBoss(float dmg) {
-		
+		state.getAudioHandler().playSound(AudioHandler.Explosion);
 		if (boss.dmg(dmg)) {
 			System.out.println("VICTORY!");
 			boss = null;
-			state.getAudioHandler().playSound(AudioHandler.Explosion);
 			state.victory();
 		}
 		

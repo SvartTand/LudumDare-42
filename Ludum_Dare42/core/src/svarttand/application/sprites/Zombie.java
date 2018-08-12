@@ -79,7 +79,7 @@ public class Zombie extends Sprite{
 			if (timer >= COOLDOWN) {
 				shootingB = true;
 				if (cooldownToShoot <= 0) {
-					handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), true, "Bullet"));
+					handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), true, "ZBullet"));
 					pHandler.addParticleEffect(ParticleType.ZFIRE, getPosition().x, getPosition().y, getRotation()+90);
 					timer = 0;
 					shootingB = false;
