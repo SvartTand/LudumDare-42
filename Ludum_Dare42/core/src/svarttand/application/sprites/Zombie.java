@@ -10,6 +10,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import svarttand.application.Application;
+import svarttand.application.misc.ParticleHandler;
+import svarttand.application.misc.ParticleType;
 import svarttand.application.sprites.Player.State;
 import svarttand.application.sprites.effects.Bullet;
 import svarttand.application.sprites.effects.BulletHandler;
@@ -65,7 +67,7 @@ public class Zombie extends Sprite{
 		shootingB = false;
 	}
 	
-	public void update(float delta, Vector2 playerPos, BulletHandler handler, TextureAtlas atlas){
+	public void update(float delta, Vector2 playerPos, BulletHandler handler, TextureAtlas atlas, ParticleHandler pHandler){
 		timer += delta;
 		
 		updateRotation(playerPos);
@@ -77,6 +79,7 @@ public class Zombie extends Sprite{
 				shootingB = true;
 				if (cooldownToShoot <= 0) {
 					handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), true, "Bullet"));
+					pHandler.addParticleEffect(ParticleType.ZFIRE, getPosition().x, getPosition().y, getRotation()+90);
 					timer = 0;
 					shootingB = false;
 					cooldownToShoot = COOLDOWN_Effect;

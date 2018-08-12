@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 
+import svarttand.application.misc.ParticleHandler;
 import svarttand.application.sprites.effects.BulletHandler;
 
 public class EnemyHandler {
@@ -18,7 +19,7 @@ public class EnemyHandler {
 		timer = 0;
 	}
 	
-	public void update(float delta, TextureAtlas atlas, Vector2 playerPos, BulletHandler handler, float worldSize){
+	public void update(float delta, TextureAtlas atlas, Vector2 playerPos, BulletHandler handler, float worldSize, ParticleHandler pHandler){
 		timer += delta;
 		if (timer >= 1) {
 			double randx =Math.random() * worldSize +1;
@@ -30,7 +31,7 @@ public class EnemyHandler {
 			timer = 0;
 		}
 		for (int i = 0; i < enemies.size(); i++) {
-			enemies.get(i).update(delta, playerPos, handler, atlas);
+			enemies.get(i).update(delta, playerPos, handler, atlas, pHandler);
 		}
 	}
 	

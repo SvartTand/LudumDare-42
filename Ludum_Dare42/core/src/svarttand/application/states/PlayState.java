@@ -69,7 +69,7 @@ public class PlayState extends State{
 		attackHandler = new AttackHandler();
 		screenShake = new ScreenShake();
 		particleHandler = new ParticleHandler(textureAtlas);
-		particleHandler.addParticleEffect(ParticleType.HIT, -100, -100);
+		particleHandler.addParticleEffect(ParticleType.HIT, -100, -100, 0);
 		
 //		world = new World(new Vector2(Application.V_WIDTH,Application.V_HEIGHT),false);
 //		rayHandler = new RayHandler(world);
@@ -102,9 +102,9 @@ public class PlayState extends State{
 	public void update(float delta) {
 		
 		
-		enemyHandler.update(delta, textureAtlas, player.getPosition(), bullets, map.getWorldSize());
+		enemyHandler.update(delta, textureAtlas, player.getPosition(), bullets, map.getWorldSize(), particleHandler);
 		handleInput(delta);
-		player.update(delta, controller.getMouse(), textureAtlas, bullets, screenShake);
+		player.update(delta, controller.getMouse(), textureAtlas, bullets, screenShake, particleHandler);
 		
 		cam.position.x = player.getX();
 		cam.position.y = player.getY();

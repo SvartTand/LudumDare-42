@@ -11,6 +11,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import svarttand.application.Application;
+import svarttand.application.misc.ParticleHandler;
+import svarttand.application.misc.ParticleType;
 import svarttand.application.misc.ScreenShake;
 import svarttand.application.sprites.effects.Bullet;
 import svarttand.application.sprites.effects.BulletHandler;
@@ -45,6 +47,9 @@ public class Player extends Sprite{
 	private Rectangle bounds;
 	private PlayState state;
 	
+	private int ammo;
+	private int hp;
+	
 	
 	
 	public Player(float f, float g, TextureAtlas atlas, PlayState state) {
@@ -64,9 +69,12 @@ public class Player extends Sprite{
 		currentState = State.STANDING;
 		cooldownToShoot = 0;
 		shootingB = false;
+		
+		ammo = 10;
+		hp = 9;
 	}
 	
-	public void update(float delta, Vector2 mouse, TextureAtlas atlas, BulletHandler handler, ScreenShake screenShake){
+	public void update(float delta, Vector2 mouse, TextureAtlas atlas, BulletHandler handler, ScreenShake screenShake, ParticleHandler pHandler){
 		updateRotation(mouse);
 //		if (isPressed) {
 //			if (speed != MAX_SPEED) {
@@ -84,6 +92,8 @@ public class Player extends Sprite{
 			if (cooldownToShoot <= 0) {
 				handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), false, "Bullet"));
 				screenShake.shake(250, 250, 250);
+				ammo--;
+				pHandler.addParticleEffect(ParticleType.FIRE, getPosition().x, getPosition().y, getRotation()+90);
 				shootingB = false;
 			}
 			speedUp = 0;
@@ -149,8 +159,19 @@ public class Player extends Sprite{
 	}
 	
 	
-	public void dispose() {
-		dispose();
+	public int getAmmo(){
+		return ammo;
+	}
+	
+	public void addAmmo(int add){
+		ammo += add;
+	}
+	public void addHP(int add){
+		hp += add;
+	}
+	
+	public int getHP(){
+		return hp;
 	}
 
 	public void updateRotation(Vector2 mouse) {
@@ -175,7 +196,7 @@ public class Player extends Sprite{
 
 	public void takeDmg(float dmg) {
 		state.dmg();
-		
+		hp--;
 		
 	}
 

@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.ParticleEffectPool.PooledEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter.ScaledNumericValue;
 import com.badlogic.gdx.utils.Array;
 
 public class ParticleHandler {
@@ -32,13 +34,27 @@ public class ParticleHandler {
 		}
 	}
 	
-	public void addParticleEffect(ParticleType type, float x, float y) {
+	public void addParticleEffect(ParticleType type, float x, float y, float amountInDegrees) {
 		PooledEffect effect = pools.get(type).obtain();
 		if (effect != null) {
 			System.out.println("yes");
 			activeEffectsMap.get(type).add(effect);
 			effect.setPosition(x, y);
-		}
+			effect.scaleEffect(0.5f);
+			if (amountInDegrees != 0) {
+				Array<ParticleEmitter> emitters = effect.getEmitters();        
+		        for (int i = 0; i < emitters.size; i++) {                          
+		           ScaledNumericValue val = emitters.get(i).getAngle();
+		           float amplitude = (val.getHighMax() - val.getHighMin()) / 2f;
+		           float h1 = amountInDegrees + amplitude;                                            
+		           float h2 = amountInDegrees - amplitude;                                            
+		           val.setHigh(h1, h2);                                           
+		           val.setLow(amountInDegrees);       
+		        }
+			}
+			
+	    }
+			
 	}
 	
 	public void addParticleEffect(ParticleType type, float x, float y, int duration) {

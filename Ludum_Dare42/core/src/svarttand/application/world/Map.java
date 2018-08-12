@@ -33,8 +33,10 @@ public class Map {
 				double randP =Math.random() * 1000 +1;
 				randP = (int) randP;
 				if (randP == 50) {
-					pickups.add(new Pickup(atlas, i*TILE_SIZE + TILE_SIZE*0.5f, j*TILE_SIZE + TILE_SIZE*0.5f, "Pickup"));
-					pickup--;
+					pickups.add(new Pickup(atlas, i*TILE_SIZE + TILE_SIZE*0.5f, j*TILE_SIZE + TILE_SIZE*0.5f, "Pickup", 0, 1));
+				}
+				if (randP <= 2d) {
+					pickups.add(new Pickup(atlas, i*TILE_SIZE + TILE_SIZE*0.5f, j*TILE_SIZE + TILE_SIZE*0.5f, "Ammo", 10, 0));
 				}
 				
 				double rand =Math.random() * 100 +1;
@@ -77,8 +79,12 @@ public class Map {
 		for (int i = 0; i < pickups.size(); i++) {
 			pickups.get(i).update(delta);
 			if (pickups.get(i).getBoundingRectangle().overlaps(player.getBounds())) {
+				player.addAmmo(pickups.get(i).getAmmo());
+				player.addHP(pickups.get(i).getHp());
+				
+				System.out.println(player.getAmmo() + ", " + player.getHP());
 				pickups.remove(i);
-				System.out.println("PICKUP!");
+				
 			}
 		}
 	}
