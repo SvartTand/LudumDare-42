@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import box2dLight.RayHandler;
 import svarttand.application.Application;
 import svarttand.application.misc.AudioHandler;
 import svarttand.application.misc.ParticleHandler;
@@ -81,7 +82,7 @@ public class Player extends Sprite{
 		hp = MAXHP;
 	}
 	
-	public void update(float delta, Vector2 mouse, TextureAtlas atlas, BulletHandler handler, ScreenShake screenShake, ParticleHandler pHandler, AudioHandler audio){
+	public void update(float delta, Vector2 mouse, TextureAtlas atlas, BulletHandler handler, ScreenShake screenShake, ParticleHandler pHandler, AudioHandler audio, RayHandler rayHandler){
 		updateRotation(mouse);
 //		if (isPressed) {
 //			if (speed != MAX_SPEED) {
@@ -99,7 +100,7 @@ public class Player extends Sprite{
 			if (cooldownToShoot <= 0) {
 				if (secondaryFire) {
 					if (secTimer <= 0) {
-						handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), false, "Bullet", 300));
+						handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), false, "Bullet", 300, rayHandler));
 						screenShake.shake(250, 250, 250);
 						ammo--;
 						pHandler.addParticleEffect(ParticleType.FIRE, getPosition().x, getPosition().y, getRotation()+90);
@@ -115,7 +116,7 @@ public class Player extends Sprite{
 					
 					secTimer -= delta;
 				}else{
-					handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), false, "Bullet", 400));
+					handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), false, "Bullet", 400,rayHandler));
 					screenShake.shake(250, 250, 250);
 					ammo--;
 					pHandler.addParticleEffect(ParticleType.FIRE, getPosition().x, getPosition().y, getRotation()+90);

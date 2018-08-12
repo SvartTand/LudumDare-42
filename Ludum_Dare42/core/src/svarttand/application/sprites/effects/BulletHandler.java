@@ -30,6 +30,7 @@ public class BulletHandler {
 		for (int i = 0; i < bullets.size(); i++) {
 			bullets.get(i).draw(batch);
 			if (bullets.get(i).getTimer() >= 5) {
+				bullets.get(i).removeLight();
 				bullets.remove(i);
 			}
 		}

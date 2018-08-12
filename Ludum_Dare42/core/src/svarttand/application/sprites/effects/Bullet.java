@@ -2,12 +2,15 @@ package svarttand.application.sprites.effects;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
 import svarttand.application.misc.ParticleHandler;
 import svarttand.application.misc.ParticleType;
 import svarttand.application.sprites.EnemyHandler;
@@ -25,7 +28,9 @@ public class Bullet extends Sprite{
 	private boolean enemy;
 	private float speed;
 	
-	public Bullet(TextureAtlas atlas, float f, float g, float rotation, boolean enemy, String path, float speed) {
+	private PointLight light;
+	
+	public Bullet(TextureAtlas atlas, float f, float g, float rotation, boolean enemy, String path, float speed, RayHandler rayHandler) {
 		super(atlas.findRegion(path));
 		timer = 0;
 		this.speed = speed;
@@ -36,6 +41,7 @@ public class Bullet extends Sprite{
 		rotation += 90;
 		this.enemy = enemy;
 		direction = new Vector2(MathUtils.cosDeg(rotation), MathUtils.sinDeg(rotation));
+		light = new PointLight(rayHandler, 100, Color.RED, 50, 1,1);
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -48,7 +54,7 @@ public class Bullet extends Sprite{
 		float speedy = direction.y * delta * speed;
 		//System.out.println(speedx + ", " + speedy);
 		setPosition(getX() + speedx, getY() + speedy);
-		
+		light.setPosition(getPosition());
 		bounds.set(getBoundingRectangle());
 	}
 	private void checkBounds(EnemyHandler handler, BulletHandler bHandler, Player player, ParticleHandler particles ) {
@@ -57,6 +63,7 @@ public class Bullet extends Sprite{
 				player.takeDmg(DMG);
 				//player.addHP(-1);
 				particles.addParticleEffect(ParticleType.HIT, getX(), getY(),45);
+				light.remove();
 				bHandler.remove(this);
 			}
 		}else{
@@ -64,6 +71,7 @@ public class Bullet extends Sprite{
 				if (bounds.overlaps(handler.getEnemies().get(i).getBounds())) {
 					handler.dmg(i, DMG);
 					particles.addParticleEffect(ParticleType.HIT2, getX(), getY(),45);
+					light.remove();;
 					bHandler.remove(this);
 				}
 			}
@@ -72,6 +80,7 @@ public class Bullet extends Sprite{
 				if (handler.getBoss().getBoundingRectangle().overlaps(bounds)) {
 					handler.dmgBoss(DMG);
 					particles.addParticleEffect(ParticleType.HIT2, getX(), getY(),45);
+					light.remove();
 					bHandler.remove(this);
 				}
 				
@@ -81,9 +90,19 @@ public class Bullet extends Sprite{
 		
 		
 	}
+	
+	public Vector2 getPosition() {
+		// TODO Auto-generated method stub
+		return new Vector2(getX()+getRegionWidth()*0.5f, getY()+getRegionHeight()*0.5f);
+	}
 
 	public float getTimer(){
 		return timer;
+	}
+
+	public void removeLight() {
+		light.remove();
+		
 	}
 	
 

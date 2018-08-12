@@ -20,12 +20,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import box2dLight.ConeLight;
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
 import svarttand.application.Application;
 import svarttand.application.input.InputController;
 import svarttand.application.input.PlayUI;
 import svarttand.application.misc.AudioHandler;
+import svarttand.application.misc.LightHandler;
 import svarttand.application.misc.ParticleHandler;
 import svarttand.application.misc.ParticleType;
 import svarttand.application.misc.ScreenShake;
@@ -53,10 +56,13 @@ public class PlayState extends State{
 	private World world;
 	private RayHandler rayHandler;
 	private PointLight light;
+	private ConeLight coneLight;
 	
 	private PlayUI ui;
 	private AudioHandler audioHandler;
 	private ShapeRenderer renderer;
+	
+	private LightHandler lightHandler;
 	
 	private Music music;
 //	private BitmapFont font;
@@ -74,8 +80,12 @@ public class PlayState extends State{
 		music.setLooping(true);
 		music.play();
 		
+		world = new World(new Vector2(Application.V_WIDTH,Application.V_HEIGHT),false);
+		rayHandler = new RayHandler(world);
+		rayHandler.useDiffuseLight(true);
+		
 		controller = new InputController(this);
-		map = new Map(textureAtlas);
+		map = new Map(textureAtlas, rayHandler);
 		player = new Player(map.getWorldSize()*0.5f, map.getWorldSize()*0.5f, textureAtlas, this);
 		Gdx.input.setInputProcessor(controller);
 		bullets = new BulletHandler(this);
@@ -91,12 +101,11 @@ public class PlayState extends State{
 		particleHandler.addParticleEffect(ParticleType.FIRE, 0, 0, 1);
 		particleHandler.addParticleEffect(ParticleType.ZFIRE, 0, 0, 1);
 		particleHandler.addParticleEffect(ParticleType.PICKUP, 0, 0, 1);
-//		world = new World(new Vector2(Application.V_WIDTH,Application.V_HEIGHT),false);
-//		rayHandler = new RayHandler(world);
-//		rayHandler.setCombinedMatrix(cam.combined);
-//		light = new PointLight(rayHandler,100, Color.YELLOW,300,100,100);
-//		
-//		rayHandler.setAmbientLight(.7f);
+		
+		
+		light = new PointLight(rayHandler,100, Color.YELLOW,100,100,100);
+		coneLight = new ConeLight(rayHandler, 100, Color.YELLOW, 600, 100, 100, player.getRotation()+ 90, 30);
+		rayHandler.setAmbientLight(new Color(.4f, .4f, .4f, .4f));
 //		font = new BitmapFont();
 //		label = new Label("HELLO!", new LabelStyle(font, Color.WHITE));
 	}
@@ -122,6 +131,9 @@ public class PlayState extends State{
 			particleHandler.addParticleEffect(ParticleType.HIT2, 0, 0, 0);
 			particleHandler.addParticleEffect(ParticleType.FIRE, 0, 0, 0);
 			particleHandler.addParticleEffect(ParticleType.ZFIRE, 0, 0, 0);
+			particleHandler.addParticleEffect(ParticleType.PICKUP, 0, 0, 0);
+			particleHandler.addParticleEffect(ParticleType.HP_PICKUP, 0, 0, 0);
+			particleHandler.addParticleEffect(ParticleType.HP_PICKUP, 0, 0, 0);
 		}
 		
 	}
@@ -130,9 +142,9 @@ public class PlayState extends State{
 	public void update(float delta) {
 		
 		
-		enemyHandler.update(delta, textureAtlas, player.getPosition(), bullets, map.getWorldSize(), particleHandler);
+		enemyHandler.update(delta, textureAtlas, player.getPosition(), bullets, map.getWorldSize(), particleHandler, rayHandler);
 		handleInput(delta);
-		player.update(delta, controller.getMouse(), textureAtlas, bullets, screenShake, particleHandler, audioHandler);
+		player.update(delta, controller.getMouse(), textureAtlas, bullets, screenShake, particleHandler, audioHandler, rayHandler);
 		
 		cam.position.x = player.getX();
 		cam.position.y = player.getY();
@@ -154,7 +166,9 @@ public class PlayState extends State{
 		
 		ui.update(delta, enemyHandler.getKills());
 		//attackHandler.update(delta);
-		//light.setPosition(player.getPosition().x, player.getPosition().y);
+		light.setPosition(player.getPosition().x, player.getPosition().y);
+		coneLight.setPosition(player.getPosition());
+		coneLight.setDirection(player.getRotation()+90);
 	}
 
 	@Override
@@ -179,9 +193,11 @@ public class PlayState extends State{
 		//batch.draw(textureAtlas.findRegion("Player"), 20, 20);
 		
 		batch.end();
+		rayHandler.setCombinedMatrix(cam);
+		rayHandler.updateAndRender();
 		ui.render(renderer, enemyHandler.getBoss(), cam);
 		ui.getStage().draw();
-		//rayHandler.updateAndRender();
+		
 		
 	}
 
@@ -191,6 +207,7 @@ public class PlayState extends State{
 		audioHandler.dispose();
 		ui.getStage().dispose();
 		music.dispose();
+		rayHandler.dispose();
 	}
 
 	@Override
@@ -277,6 +294,11 @@ public class PlayState extends State{
 	public void boss() {
 		ui.addBossLabel();
 		
+	}
+
+	public RayHandler getRayhandler() {
+		// TODO Auto-generated method stub
+		return rayHandler;
 	}
 
 }

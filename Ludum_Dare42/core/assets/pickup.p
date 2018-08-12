@@ -5,8 +5,8 @@ active: false
 lowMin: 1000.0
 lowMax: 1000.0
 - Count - 
-min: 25
-max: 25
+min: 12
+max: 12
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
@@ -58,24 +58,17 @@ timeline0: 0.0
 - X Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 32.0
-highMax: 20.0
+highMin: 10.0
+highMax: 2.0
 relative: false
-scalingCount: 1
+scalingCount: 2
 scaling0: 1.0
-timelineCount: 1
+scaling1: 1.0
+timelineCount: 2
 timeline0: 0.0
+timeline1: 0.5410959
 - Y Scale - 
-active: true
-lowMin: 0.0
-lowMax: 0.0
-highMin: 32.0
-highMax: 20.0
-relative: false
-scalingCount: 1
-scaling0: 1.0
-timelineCount: 1
-timeline0: 0.0
+active: false
 - Velocity - 
 active: true
 lowMin: 0.0
@@ -115,12 +108,12 @@ timeline0: 0.0
 active: false
 - Tint - 
 colorsCount: 6
-colors0: 0.07058824
+colors0: 0.08235294
 colors1: 0.047058824
 colors2: 1.0
-colors3: 0.54901963
-colors4: 1.0
-colors5: 0.78039217
+colors3: 0.5372549
+colors4: 0.8784314
+colors5: 1.0
 timelineCount: 2
 timeline0: 0.0
 timeline1: 1.0
@@ -151,6 +144,5 @@ behind: false
 premultipliedAlpha: false
 spriteMode: single
 - Image Paths -
-particle.png
-/C:/Users/Blackstorm/Desktop/Ludum Dare 42/Textures/Parti.png
+/C:/Users/Blackstorm/Desktop/Ludum Dare 42/Textures/HPparticle.png
 

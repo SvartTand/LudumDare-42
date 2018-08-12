@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 
+import box2dLight.RayHandler;
 import svarttand.application.Application;
 import svarttand.application.misc.AudioHandler;
 import svarttand.application.misc.ParticleHandler;
@@ -14,7 +15,7 @@ import svarttand.application.states.PlayState;
 
 public class EnemyHandler {
 	
-	public static final int GOAL = 1;
+	public static final int GOAL = 10;
 	private ArrayList<Zombie> enemies;
 	private float timer;
 	
@@ -29,10 +30,10 @@ public class EnemyHandler {
 		this.state = state;
 	}
 	
-	public void update(float delta, TextureAtlas atlas, Vector2 playerPos, BulletHandler handler, float worldSize, ParticleHandler pHandler){
+	public void update(float delta, TextureAtlas atlas, Vector2 playerPos, BulletHandler handler, float worldSize, ParticleHandler pHandler, RayHandler rayHandler){
 		timer += delta;
 		if (killCount >= GOAL && boss == null) {
-			boss = new Boss(atlas, playerPos.x, playerPos.y + 200);
+			boss = new Boss(atlas, playerPos.x, playerPos.y + 200, rayHandler);
 			state.boss();
 			System.out.println("BOSS");
 		}
@@ -42,14 +43,14 @@ public class EnemyHandler {
 			double randy =Math.random() * worldSize +1;
 			float y = (float) randy;
 			
-			enemies.add(new Zombie(atlas, x, y));
+			enemies.add(new Zombie(atlas, x, y,rayHandler));
 			timer = 0;
 		}
 		for (int i = 0; i < enemies.size(); i++) {
-			enemies.get(i).update(delta, playerPos, handler, atlas, pHandler, state.getAudioHandler());
+			enemies.get(i).update(delta, playerPos, handler, atlas, pHandler, state.getAudioHandler(), state.getRayhandler());
 		}
 		if (boss != null) {
-			boss.update(delta, playerPos, handler, atlas, pHandler, state.getAudioHandler());
+			boss.update(delta, playerPos, handler, atlas, pHandler, state.getAudioHandler(), state.getRayhandler());
 		}
 	}
 	

@@ -15,6 +15,8 @@ public class AudioHandler {
 	public static final int SHOOT_1 = 3;
 	public static final int Shoot_2 = 4;
 	public static final int ERROR = 5;
+	public static final int BIG_SHOOT = 6;
+	public static final int MULTI_SHOOT = 7;
 	
 	private ArrayList<Sound> audioList;
 	

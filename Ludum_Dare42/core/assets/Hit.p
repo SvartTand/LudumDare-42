@@ -5,8 +5,8 @@ active: false
 lowMin: 300.0
 lowMax: 300.0
 - Count - 
-min: 0
-max: 200
+min: 30
+max: 30
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
@@ -64,8 +64,8 @@ timeline0: 0.0
 - X Scale - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 32.0
-highMax: 32.0
+highMin: 10.0
+highMax: 3.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -147,5 +147,5 @@ behind: false
 premultipliedAlpha: false
 spriteMode: single
 - Image Paths -
-particle.png
+/C:/Users/Blackstorm/Desktop/Ludum Dare 42/Textures/Parti.png
 

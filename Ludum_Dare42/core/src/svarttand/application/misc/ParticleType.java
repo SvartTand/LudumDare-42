@@ -6,7 +6,8 @@ public enum ParticleType {
 	FIRE("Fire.p", 10,false),
 	ZFIRE("ZFire.p",10,false),
 	HIT2("Hit2.p",10,false),
-	PICKUP("pickup.p", 10,false)
+	PICKUP("pickup.p", 10,false),
+	HP_PICKUP("HpPickup.p", 10,false)
 	;
 	
 	private String path;

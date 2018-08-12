@@ -1,5 +1,6 @@
 package svarttand.application.sprites;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -9,6 +10,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
 import svarttand.application.Application;
 import svarttand.application.misc.AudioHandler;
 import svarttand.application.misc.ParticleHandler;
@@ -48,7 +51,9 @@ public class Zombie extends Sprite{
 	private float cooldownToShoot;
 	private boolean shootingB;
 	
-	public Zombie(TextureAtlas atlas, float x, float y) {
+	private PointLight light;
+	
+	public Zombie(TextureAtlas atlas, float x, float y, RayHandler rayHandler) {
 		super(atlas.findRegion("Player"));
 		rotationV = new Vector2();
 		bounds = new Rectangle(x, y, 20, 20);
@@ -66,9 +71,11 @@ public class Zombie extends Sprite{
 		currentState = State.STANDING;
 		cooldownToShoot = COOLDOWN_Effect;
 		shootingB = false;
+		
+		light = new PointLight(rayHandler, 100, Color.MAGENTA, 80,50,50);
 	}
 	
-	public void update(float delta, Vector2 playerPos, BulletHandler handler, TextureAtlas atlas, ParticleHandler pHandler, AudioHandler audioHandler){
+	public void update(float delta, Vector2 playerPos, BulletHandler handler, TextureAtlas atlas, ParticleHandler pHandler, AudioHandler audioHandler, RayHandler rayHandler){
 		timer += delta;
 		
 		updateRotation(playerPos);
@@ -79,7 +86,7 @@ public class Zombie extends Sprite{
 			if (timer >= COOLDOWN) {
 				shootingB = true;
 				if (cooldownToShoot <= 0) {
-					handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), true, "ZBullet",300));
+					handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), true, "ZBullet",300, rayHandler));
 					pHandler.addParticleEffect(ParticleType.ZFIRE, getPosition().x, getPosition().y, getRotation()+90);
 					timer = 0;
 					shootingB = false;
@@ -106,6 +113,7 @@ public class Zombie extends Sprite{
 
 		bounds.setPosition(getX(), getY());
 		setRegion(getFrame(delta));
+		light.setPosition(getPosition());
 	}
 	
 	private TextureRegion getFrame(float delta) {
@@ -174,6 +182,7 @@ public class Zombie extends Sprite{
 	public boolean dmg(float dmg) {
 		hp -= dmg;
 		if (hp <= 0) {
+			light.remove();
 			return true;
 		}
 		return false;

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
+import box2dLight.RayHandler;
 import svarttand.application.misc.AudioHandler;
 import svarttand.application.misc.ParticleType;
 import svarttand.application.sprites.Player;
@@ -22,24 +23,24 @@ public class Map {
 	private ArrayList<Tile> obstacles;
 	private ArrayList<Pickup> pickups;
 	
-	public Map(TextureAtlas atlas) {
+	public Map(TextureAtlas atlas, RayHandler rayHandler) {
 		map = new Tile[SIZE][SIZE];
 		leavesMap = new Tile[SIZE][SIZE];
 		pickups = new ArrayList<Pickup>();
-		generateMap(atlas);
+		generateMap(atlas, rayHandler);
 	}
 
-	private void generateMap(TextureAtlas atlas) {
+	private void generateMap(TextureAtlas atlas, RayHandler rayHandler) {
 		int pickup = NUMBER_OF_PICKUPS;
 		for (int i = 0; i < map.length; i++) {
 			for (int j = 0; j < map[i].length; j++) {
 				double randP =Math.random() * 1000 +1;
 				randP = (int) randP;
 				if (randP == 50) {
-					pickups.add(new Pickup(atlas, i*TILE_SIZE + TILE_SIZE*0.5f, j*TILE_SIZE + TILE_SIZE*0.5f, "Pickup", 0, 1));
+					pickups.add(new Pickup(atlas, i*TILE_SIZE + TILE_SIZE*0.5f, j*TILE_SIZE + TILE_SIZE*0.5f, "Pickup", 0, 1, rayHandler));
 				}
 				if (randP <= 2d) {
-					pickups.add(new Pickup(atlas, i*TILE_SIZE + TILE_SIZE*0.5f, j*TILE_SIZE + TILE_SIZE*0.5f, "Ammo", 10, 0));
+					pickups.add(new Pickup(atlas, i*TILE_SIZE + TILE_SIZE*0.5f, j*TILE_SIZE + TILE_SIZE*0.5f, "Ammo", 10, 0, rayHandler));
 				}
 				
 				double rand =Math.random() * 100 +1;
@@ -95,14 +96,18 @@ public class Map {
 						break;
 					}
 					player.addHP(pickups.get(i).getHp());
+					state.getParticleHandler().addParticleEffect(ParticleType.HP_PICKUP, player.getPosition().x, player.getPosition().y, 1);
 					state.heal();
+				}else{
+					player.addAmmo(pickups.get(i).getAmmo());
+					state.getParticleHandler().addParticleEffect(ParticleType.PICKUP, player.getPosition().x, player.getPosition().y, 1);
 				}
-				player.addAmmo(pickups.get(i).getAmmo());
 				
 				
+				pickups.get(i).remove();
 				System.out.println(player.getAmmo() + ", " + player.getHP());
 				pickups.remove(i);
-				state.getParticleHandler().addParticleEffect(ParticleType.PICKUP, player.getPosition().x, player.getPosition().y, 1);
+				
 				audioHandler.playSound(AudioHandler.PICKUO);
 			}
 		}
