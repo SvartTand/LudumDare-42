@@ -83,8 +83,14 @@ public class PlayState extends State{
 		attackHandler = new AttackHandler();
 		screenShake = new ScreenShake();
 		particleHandler = new ParticleHandler(textureAtlas);
-		particleHandler.addParticleEffect(ParticleType.HIT, -100, -100, 0);
+		
 		ui = new PlayUI(textureAtlas, this);
+		
+		particleHandler.addParticleEffect(ParticleType.HIT, 0, 0, 1);
+		particleHandler.addParticleEffect(ParticleType.HIT2, 0, 0, 1);
+		particleHandler.addParticleEffect(ParticleType.FIRE, 0, 0, 1);
+		particleHandler.addParticleEffect(ParticleType.ZFIRE, 0, 0, 1);
+		particleHandler.addParticleEffect(ParticleType.PICKUP, 0, 0, 1);
 //		world = new World(new Vector2(Application.V_WIDTH,Application.V_HEIGHT),false);
 //		rayHandler = new RayHandler(world);
 //		rayHandler.setCombinedMatrix(cam.combined);
@@ -109,6 +115,13 @@ public class PlayState extends State{
 		}
 		if (Gdx.input.isKeyPressed(Keys.D)) {
 			player.setSpeedSide(Player.MAX_SPEED);
+		}
+		
+		if (Gdx.input.isKeyPressed(Keys.V)) {
+			particleHandler.addParticleEffect(ParticleType.HIT, 0, 0, 0);
+			particleHandler.addParticleEffect(ParticleType.HIT2, 0, 0, 0);
+			particleHandler.addParticleEffect(ParticleType.FIRE, 0, 0, 0);
+			particleHandler.addParticleEffect(ParticleType.ZFIRE, 0, 0, 0);
 		}
 		
 	}
@@ -205,13 +218,13 @@ public class PlayState extends State{
 	}
 
 	public void addBullet() {
-		player.shoot();
+		player.shoot(audioHandler);
 		
 		
 	}
 
 	public void addAttack() {
-		attackHandler.addAttack(player.getPosition(), textureAtlas, player.getRotation());
+		player.shootR(audioHandler);
 		
 	}
 	
@@ -242,6 +255,7 @@ public class PlayState extends State{
 	}
 	public void defeat(){
 		System.out.println("DEFEAT");
+		gsm.setText("You Have Been Defeated...");
 		music.stop();
 		gsm.pop();
 		Gdx.graphics.setWindowedMode(Application.V_WIDTH, Application.V_HEIGHT);
@@ -249,7 +263,8 @@ public class PlayState extends State{
 	}
 
 	public void victory() {
-		System.out.println("VICTORYs");
+		System.out.println("VICTORY");
+		gsm.setText("You Are Victorious!");
 		gsm.pop();
 		music.stop();
 		Gdx.graphics.setWindowedMode(Application.V_WIDTH, Application.V_HEIGHT);

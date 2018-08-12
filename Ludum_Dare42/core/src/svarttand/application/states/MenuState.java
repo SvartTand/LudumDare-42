@@ -38,7 +38,7 @@ public class MenuState extends State {
 	@Override
 	public void update(float delta) {
 		if (b) {
-			ui.init();
+			ui.init(gsm.getText());
 			b = false;
 		}
 	}

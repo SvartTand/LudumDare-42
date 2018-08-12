@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class GameStateManager {
 	private Stack<State> states;
     public AssetManager assetManager;
-    private int score;
+    private String text;
     private int wave;
 
     public GameStateManager(AssetManager manager){
@@ -51,6 +51,15 @@ public class GameStateManager {
     public void resize(int width, int height){
         states.peek().resize(width,height);
     }
+
+	public void setText(String string) {
+		this.text = string;
+		
+	}
+	
+	public String getText() {
+		return text;
+	}
 
 	
 

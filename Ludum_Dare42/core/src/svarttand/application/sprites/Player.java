@@ -52,6 +52,10 @@ public class Player extends Sprite{
 	private int ammo;
 	private int hp;
 	
+	private boolean secondaryFire;
+	private float secTimer;
+	private float secCounter;
+	
 	
 	
 	public Player(float f, float g, TextureAtlas atlas, PlayState state) {
@@ -63,6 +67,7 @@ public class Player extends Sprite{
 		speedSide = 0;
 		setPosition(f, g);
 		stateTimer = 0;
+		secCounter = 0;
 		
 		walking = new Animation<TextureRegion>(0.1f, atlas.findRegions("Walking"), PlayMode.LOOP);
 		shooting = new Animation<TextureRegion>(0.1f, atlas.findRegions("Shooting"));
@@ -92,12 +97,32 @@ public class Player extends Sprite{
 //		}
 		if (shootingB) {
 			if (cooldownToShoot <= 0) {
-				handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), false, "Bullet"));
-				screenShake.shake(250, 250, 250);
-				ammo--;
-				pHandler.addParticleEffect(ParticleType.FIRE, getPosition().x, getPosition().y, getRotation()+90);
-				shootingB = false;
-				audio.playSound(AudioHandler.SHOOT_1);
+				if (secondaryFire) {
+					if (secTimer <= 0) {
+						handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), false, "Bullet"));
+						screenShake.shake(250, 250, 250);
+						ammo--;
+						pHandler.addParticleEffect(ParticleType.FIRE, getPosition().x, getPosition().y, getRotation()+90);
+						audio.playSound(AudioHandler.SHOOT_1);
+						secTimer = 0.2f;
+						secCounter++;
+						if (secCounter>= 5) {
+							shootingB = false;
+							secCounter = 0;
+							secondaryFire = false;
+						}
+					}
+					
+					secTimer -= delta;
+				}else{
+					handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), false, "Bullet"));
+					screenShake.shake(250, 250, 250);
+					ammo--;
+					pHandler.addParticleEffect(ParticleType.FIRE, getPosition().x, getPosition().y, getRotation()+90);
+					shootingB = false;
+					audio.playSound(AudioHandler.SHOOT_1);
+				}
+				
 			}
 			speedUp = 0;
 			speedSide = 0;
@@ -206,17 +231,29 @@ public class Player extends Sprite{
 		
 	}
 
-	public void shoot() {
+	public void shoot(AudioHandler handler) {
 		if (ammo > 0) {
 			if (!shootingB) {
 				currentState = State.SHOOTING;
 				cooldownToShoot = COOLDOWN;
 				shootingB = true;
 			}
+		}else{
+			handler.playSound(AudioHandler.ERROR);
 		}
-		
-		
-		
+	}
+	
+	public void shootR(AudioHandler handler){
+		if (ammo >= 5) {
+			if (!shootingB) {
+				currentState = State.SHOOTING;
+				cooldownToShoot = COOLDOWN +0.1f;
+				shootingB = true;
+				secondaryFire = true;
+			}
+		}else {
+			handler.playSound(AudioHandler.ERROR);
+		}
 	}
 	
 

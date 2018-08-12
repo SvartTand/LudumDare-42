@@ -61,7 +61,7 @@ public class Bullet extends Sprite{
 			for (int i = 0; i < handler.getEnemies().size(); i++) {
 				if (bounds.overlaps(handler.getEnemies().get(i).getBounds())) {
 					handler.dmg(i, DMG);
-					particles.addParticleEffect(ParticleType.HIT, getX(), getY(),45);
+					particles.addParticleEffect(ParticleType.HIT2, getX(), getY(),45);
 					bHandler.remove(this);
 				}
 			}
@@ -69,7 +69,7 @@ public class Bullet extends Sprite{
 				
 				if (handler.getBoss().getBoundingRectangle().overlaps(bounds)) {
 					handler.dmgBoss(DMG);
-					particles.addParticleEffect(ParticleType.HIT, getX(), getY(),45);
+					particles.addParticleEffect(ParticleType.HIT2, getX(), getY(),45);
 					bHandler.remove(this);
 				}
 				

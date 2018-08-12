@@ -59,7 +59,7 @@ public class PlayUI {
 		stage.addActor(hpLabel);
 		
 		bossLabel = new Label("Boss Hp:", labelStyle);
-		bossLabel.setPosition(Application.V_WIDTH*0.5f, Application.V_HEIGHT *0.04f);
+		bossLabel.setPosition(Application.V_WIDTH*0.55f, Application.V_HEIGHT *0.05f);
 	}
 	
 	public Stage getStage(){

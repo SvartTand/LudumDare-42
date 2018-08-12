@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import svarttand.application.misc.AudioHandler;
+import svarttand.application.misc.ParticleType;
 import svarttand.application.sprites.Player;
 import svarttand.application.states.PlayState;
 
@@ -54,7 +55,14 @@ public class Map {
 								
 							}else{
 								try {
-									leavesMap[k][l] = new Tile("LeavesTile",k * TILE_SIZE, l *TILE_SIZE);
+									double r =Math.random() * 2 +1;
+									r = (int) r;
+									if (r == 1) {
+										leavesMap[k][l] = new Tile("LeavesTile2",k * TILE_SIZE, l *TILE_SIZE);
+									}else{
+										leavesMap[k][l] = new Tile("LeavesTile",k * TILE_SIZE, l *TILE_SIZE);
+									}
+									
 								} catch (Exception e) {
 									// TODO: handle exception
 								}
@@ -94,7 +102,7 @@ public class Map {
 				
 				System.out.println(player.getAmmo() + ", " + player.getHP());
 				pickups.remove(i);
-				
+				state.getParticleHandler().addParticleEffect(ParticleType.PICKUP, player.getPosition().x, player.getPosition().y, 1);
 				audioHandler.playSound(AudioHandler.PICKUO);
 			}
 		}

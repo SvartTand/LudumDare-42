@@ -89,8 +89,12 @@ public class MenuUI {
 		return stage;
 	}
 
-	public void init() {
+	public void init(String string) {
+		System.out.println(string);
+		gameOverText.setText(string);
 		Gdx.input.setInputProcessor(stage);
+		gameOverText.setVisible(true);
+		gameOverText.setPosition(Application.V_WIDTH *0.5f - gameOverText.getWidth()*0.7f, Application.V_HEIGHT*0.3f);
 		
 	}
 
