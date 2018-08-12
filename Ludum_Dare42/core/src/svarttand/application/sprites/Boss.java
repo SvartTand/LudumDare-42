@@ -78,7 +78,7 @@ public class Boss extends Sprite{
 		slingerGun = false;
 		slingerCounter = 0;
 		
-		light = new PointLight(rayHandler, 100, Color.MAGENTA, 500, 800, 800);
+		light = new PointLight(rayHandler, 100, Color.MAGENTA, 200, 80, 80);
 	}
 	
 	public void update(float delta, Vector2 playerPos, BulletHandler handler, TextureAtlas atlas, ParticleHandler pHandler, AudioHandler audioHandler, RayHandler rayHandler){
@@ -93,9 +93,9 @@ public class Boss extends Sprite{
 				
 				shootingB = true;
 				if (cooldownToShoot <= 0 && !machineGun && !slingerGun) {
-					double rand =Math.random() * 4 +1;
+					double rand =Math.random() * 3 +1;
 					rand = (int) rand;
-					System.out.println(rand);
+					//System.out.println(rand);
 					if (rand == 1) {
 						handler.add(new Bullet(atlas, getPosition().x, getPosition().y, getRotation(), true, "BigBullet", 250, rayHandler));
 						pHandler.addParticleEffect(ParticleType.ZFIRE, getPosition().x, getPosition().y, getRotation()+90);
@@ -144,9 +144,10 @@ public class Boss extends Sprite{
 						pHandler.addParticleEffect(ParticleType.ZFIRE, getPosition().x, getPosition().y, slingerRotation+90);
 						slingerCounter++;
 						if (slingerCounter >= 15) {
-							machineGun = false;
+							slingerGun = false;
 							timer = 0;
 							slingerCounter = 0;
+							slingerRotation = 0;
 							//aslingerTimer = 0;
 						}
 					}
@@ -173,6 +174,7 @@ public class Boss extends Sprite{
 		region = (TextureRegion) walking.getKeyFrame(stateTimer, true);
 		stateTimer += delta;
 		setRegion(region);
+		light.setPosition(getPosition());
 	}
 	
 	private TextureRegion getFrame(float delta) {

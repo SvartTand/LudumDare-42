@@ -20,7 +20,6 @@ private Random random;
 	}
 	
 	public void shake(float radius , float duration, float intensity) {
-		 System.out.println("SHAKE!!!");
 	    this.elapsed = 0;
 	    this.duration = duration / 1000f;
 
